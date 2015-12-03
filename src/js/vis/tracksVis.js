@@ -10,7 +10,7 @@ d3.afx.tracks = function() {
 
     const dispatch = d3.dispatch('mouseover', 'mouseout', 'click');
 
-    function exports(selection) {
+    function vis(selection) {
         selection.each(function(data) {
             const margin = {
                     top: height / 16,
@@ -161,19 +161,19 @@ d3.afx.tracks = function() {
         });
     }
 
-    exports.width = function(x = width) {
+    vis.width = function(x = width) {
         width = x;
         return this;
     };
 
-    exports.height = function(y = height) {
+    vis.height = function(y = height) {
         height = y;
         return this;
     };
 
-    d3.rebind(exports, dispatch, 'on');
+    d3.rebind(vis, dispatch, 'on');
 
-    return exports;
+    return vis;
 };
 
 export default d3.afx.tracks;

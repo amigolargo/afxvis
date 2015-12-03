@@ -69,15 +69,17 @@ export default class VisManager {
                     trackLength = lastSegment.start + lastSegment.duration,
                     chartWidth = Math.floor(trackLength * 100);
 
-                this.audioVis = audioVis()
-                    .width(chartWidth)
-                    .height(document.documentElement.clientHeight);
+                this.audioVis = audioVis();
 
                 audioBindings(json[0], this.trackMetaData);
 
                 d3.select('.' + parentClass)
-                    .datum(data)
                     .call(this.audioVis);
+
+                this.audioVis
+                    .width(chartWidth)
+                    .height(document.documentElement.clientHeight)
+                    .draw(data);
 
                 const actions = new AudioActions(this.audioVisEl, json, request.params.id, chartWidth);
         })
@@ -91,7 +93,6 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     replayAudio(parentClass, request) {
-        // this.destroyAudio();
         dataManager.readJsonFiles([
                 `./data/echonest/${request.params.id}.json`,
                 `./data/tracks-export-${this.tracksJSONVersion}.json`
@@ -104,9 +105,11 @@ export default class VisManager {
 
                 audioBindings(json[0], this.trackMetaData);
 
-                d3.select('.' + parentClass)
-                    .datum(data)
-                    .call(this.audioVis);
+                this.audioVis
+                    .width(chartWidth)
+                    .height(document.documentElement.clientHeight)
+                    .destroy()
+                    .draw(data);
 
         })
         .catch(error => {

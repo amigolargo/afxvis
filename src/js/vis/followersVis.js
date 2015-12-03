@@ -13,7 +13,7 @@ d3.afx.followers = function() {
     let width = 1000,
         height = 500;
 
-    function exports(selection) {
+    function vis(selection) {
         selection.each(function(data) {
 
 
@@ -182,17 +182,17 @@ d3.afx.followers = function() {
         });
     }
 
-    exports.width = function(x = width) {
+    vis.width = function(x = width) {
         width = x;
         return this;
     };
 
-    exports.height = function(y = height) {
+    vis.height = function(y = height) {
         height = y;
         return this;
     };
 
-    return exports;
+    return vis;
 };
 
 export default d3.afx.followers;
