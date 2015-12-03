@@ -1,0 +1,67 @@
+{
+  "name": "afxvis",
+  "version": "1.0.0",
+  "description": "Visualisizing user19081971",
+  "main": "index.js",
+  "scripts": {
+    "clean": "n-clean dist/* && mkdir dist/js",
+    "prebuild": "npm run clean -s",
+    "build": "npm run build:assets && npm run build:scripts -s && npm run build:styles -s && npm run build:html -s",
+    "build:assets": "n-copy --source src --destination dist \"css/**/*\" \"img/**/*\" \"data/**/*\" \"views/**/*\"",
+    "build:scripts": "./node_modules/.bin/jspm bundle-sfx ./src/js/app ./dist/js/app.min.js --minify",
+    "build:styles": "postcss --use autoprefixer src/css/main.css | cssmin > dist/css/main.css",
+    "build:html": "./node_modules/.bin/html-dist src/index.html --remove-all --minify --insert js/app.min.js -o dist/index.html",
+    "watch": "npm run watch:styles",
+    "watch:styles": "nodemon -e scss -x node-sass --include-path scss src/scss/main.scss src/css/main.css",
+    "serve": "npm run serve:src",
+    "serve:src": "http-server -p 9090 ./src",
+    "serve:dist": "http-server -p 8080 ./dist",
+    "deploy": "firebase"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/tomlongmate/afxvis.git"
+  },
+  "author": "Tom Longmate",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/tomlongmate/afxvis#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.1.1",
+    "cssmin": "^0.4.3",
+    "html-dist": "^0.1.0",
+    "http-server": "^0.8.5",
+    "jspm": "^0.16.15",
+    "node-sass": "^3.4.2",
+    "nodemon": "^1.8.1",
+    "npm-build-tools": "^2.2.5",
+    "postcss": "^5.0.12",
+    "postcss-cli": "^2.3.2"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "src"
+    },
+    "dependencies": {
+      "chroma-js": "npm:chroma-js@^1.1.1",
+      "d3": "github:mbostock/d3@^3.5.9",
+      "dot": "npm:dot@^1.0.3",
+      "grapnel": "npm:grapnel@^0.6.2",
+      "gsap": "npm:gsap@^1.18.0",
+      "lodash": "npm:lodash@^3.10.1",
+      "play-audio": "npm:play-audio@^0.1.0",
+      "rivets": "npm:rivets@^0.8.1",
+      "soundcloud": "npm:soundcloud@^3.0.1",
+      "topojson": "npm:topojson@^1.4.19"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  }
+}

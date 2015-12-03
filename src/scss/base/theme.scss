@@ -1,0 +1,32 @@
+// =============================================================================
+// Theme rules for block level container elements (colour, background, texture)
+// =============================================================================
+
+html {
+	// Default styles ----------------------------------------------------------
+	background-color: map-get($bg, highlight);
+
+
+
+	// ↓↓↓ Media query overwrites ↓↓↓
+
+	// Small -------------------------------------------------------------------
+	@media #{$mqS} {
+		background-color: lighten(map-get($bg, highlight), 10%);
+	}
+
+	// Medium ------------------------------------------------------------------
+	@media #{$mqM} {
+		background-color: lighten(map-get($bg, highlight), 20%);
+	}
+
+	// Large -------------------------------------------------------------------
+	@media #{$mqL} {
+		background-color: lighten(map-get($bg, highlight), 30%);
+	}
+
+	// Extra large -------------------------------------------------------------
+	@media #{$mqXL} {
+		background-color: lighten(map-get($bg, highlight), 40%);
+	}
+}

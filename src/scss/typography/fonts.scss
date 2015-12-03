@@ -1,0 +1,39 @@
+// =============================================================================
+// Fonts
+// =============================================================================
+
+$font-svg: (
+	stack: "Roboto Mono, monospaced",
+	weight: (
+		light:  300,
+		normal:  400,
+		bold:  700
+	),
+	axis: (
+		font-size: .5625rem
+	),
+	label: (
+		font-size: .703125rem
+	)
+);
+
+$font-html: (
+	stack: "Roboto Mono, monospaced",
+	weight: (
+		light:  300,
+		normal:  400,
+		bold:  700
+	),
+	s: (
+		font-size: 0.703125rem
+	),
+	r: (
+		font-size: 1rem
+	),
+	xl: (
+		font-size: 4.3065vw
+	),
+	xxl: (
+		font-size: 6.525vw
+	)
+);

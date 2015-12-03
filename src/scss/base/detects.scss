@@ -1,0 +1,51 @@
+// =============================================================================
+// Detects. Hidden pseudo elements for javascript screen size based queries
+// =============================================================================
+
+body {
+	&:after {
+		content: "extra-small";
+		display:none;
+	}
+
+	&:before {
+		content: "mobile";
+		display:none;
+	}
+
+	// Small -------------------------------------------------------------------
+	@media #{$mqS} {
+		&:after {
+			content: "small";
+		}
+	}
+
+	// Medium ------------------------------------------------------------------
+	@media #{$mqM} {
+		&:after {
+			content: "medium";
+		}
+	}
+
+	// Large -------------------------------------------------------------------
+	@media #{$mqL} {
+		&:after {
+			content: "large";
+		}
+	}
+
+	// Extra large -------------------------------------------------------------
+	@media #{$mqXL} {
+		&:after {
+			content: "extra-large";
+		}
+	}
+
+
+	// Desktop -----------------------------------------------------------------
+	@media #{$mqDesktop} {
+		&:before {
+			content: "desktop";
+		}
+	}
+}

@@ -1,0 +1,105 @@
+// =============================================================================
+// Followers vis (cartogram)
+// =============================================================================
+
+.vis-followers {
+
+	background-color: #c6d300;
+
+	h1, h2, h3, h4, h5, h6 {
+		font-size: 4.5vh;
+		line-height: 1em;
+		margin: 0;
+		color: #fff;
+		position: relative;
+		z-index: 1;
+		padding-left: 1em;
+	}
+
+	h3, h4 {
+		display: inline-block;
+		font-weight: 300;
+	}
+
+	h4 {
+		padding-left: 0;
+		position: relative;
+	}
+
+	h4 sup {
+		position: absolute;
+		top: -0.25em;
+		right: -0.75em;
+	}
+
+	p {
+		font-size: 4.5vh;
+		padding-left: 1em;
+		margin-top: .5em;
+	}
+
+	small {
+		font-size: 1.5vh;
+		color: #fff;
+	}
+
+	#text {
+		position: absolute;
+		margin-top: -16%;
+		z-index: 10;
+		pointer-events: none;
+	}
+
+	.svg-container {
+		text-align: center;
+		position: relative;
+		z-index: 0;
+	}
+
+	form {
+		pointer-events: all;
+	}
+
+	path.country {
+		stroke: #c6d300;
+		stroke-width: 0.5;
+		transition: stroke 0.3s ease-out;
+		cursor: pointer;
+	}
+
+	path.country.active {
+		stroke-width: 1;
+		stroke: #fff;
+	}
+
+	form {
+		font-size: 4.5vh;
+		padding-left: 1em;
+	}
+
+	form button {
+		font-weight: 500;
+		font-size: 2vh;
+	}
+
+
+	button {
+		border: none;
+		background: rgba(255,255,255,0.333);
+		border-radius: 0.25em;
+		font-family: "Roboto Mono";
+		font-weight: 300;
+		color: #c6d300;
+		cursor: pointer;
+		transition: background 0.3s ease-out;
+	}
+
+	button:hover,
+	button.active {
+		background: rgba(255,255,255,1);
+	}
+
+	button:focus {
+		outline: none;
+	}
+}

@@ -1,0 +1,166 @@
+// =============================================================================
+//   Audio vis (stacked / echonest)
+// =============================================================================
+
+.vis-audio {
+	h1, h2, h3, h4, h5 {
+		margin: 0;
+		padding: 0;
+		color: #fff;
+		font-size: 1.5vh;
+		font-weight: 300;
+	}
+
+	h1 {
+		font-weight: 900;
+	}
+
+	.info {
+		background: rgba(0,0,0,0.2);
+		position: absolute;
+		padding: 1vh 2vh 1vh 11.75vh;
+		bottom: 0;
+		z-index: 20;
+	}
+
+	.info button {
+		border: none;
+		background: none;
+		width: 6.5vh;
+		height: 6.5vh;
+		border-radius: 3.25vh;
+		background-color: #ff5500;
+		background-image: url('/img/sc-arrow.svg');
+		background-size: 100% auto;
+		position: absolute;
+		left: 2.6vh;
+		top: 1.6vh;
+		opacity: 0.75;
+		cursor: pointer;
+	}
+
+	.info button:focus {
+		outline: none;
+	}
+
+	.info button:hover {
+		opacity: 1;
+	}
+
+	progress {
+		-webkit-appearance: none;
+		border: none;
+		position: absolute;
+		top: -2px;
+		left: 0;
+		right: 0;
+		padding: 0;
+		height: 2px;
+		width: 100%;
+	}
+
+	progress::-webkit-progress-bar {
+		height: 2px;
+		background: none;
+	}
+
+	progress::-webkit-progress-value {
+		background: #fff;
+		height: 2px;
+	}
+
+	svg {
+		margin-left: 50%;
+		z-index: 9;
+		position: relative;
+	}
+
+	.bars {
+		padding: 0;
+		margin: 0;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+	}
+
+	.bars {
+		list-style-type: none;
+		width: 50.025%;
+		z-index: 10;
+		transform: translate3D(0,0,0);
+	}
+
+	.bars-clone {
+		left: 0;
+		width: 50.05%;
+		z-index: 0;
+	}
+
+	.bars li {
+		display: block;
+		width: 100%;
+		position: relative;
+	}
+
+	.bars-paused li {
+		transition-duration: 0;
+	}
+
+	.bars li:before {
+		content: "";
+		display: block;
+		background: #fff;
+		width: 5%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: 1;
+		border-bottom: 1px solid #000;
+	}
+
+	.bars li:after {
+		position: absolute;
+		right: 0;
+		font-size: 1vh;
+		bottom: 0.1vh;
+		width: 4.75%;
+		z-index: 2;
+		font-family: "Roboto Mono";
+	}
+
+	.bars-clone li:after,
+	.bars-clone li:before {
+		display: none;
+	}
+
+	.bars li:nth-child(12):after { content: "C"; }
+	.bars li:nth-child(11):after { content: "C♯"; }
+	.bars li:nth-child(10):after { content: "D"; }
+	.bars li:nth-child(9):after { content: "D♯"; }
+	.bars li:nth-child(8):after { content: "E"; }
+	.bars li:nth-child(7):after { content: "F"; }
+	.bars li:nth-child(6):after { content: "F♯"; }
+	.bars li:nth-child(5):after { content: "G"; }
+	.bars li:nth-child(4):after { content: "A♭"; }
+	.bars li:nth-child(3):after { content: "A"; }
+	.bars li:nth-child(2):after { content: "B♭"; }
+	.bars li:nth-child(1):after { content: "B"; }
+
+	.mask {
+		background: rgba(255, 255, 255, 0.85);
+	}
+
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: black;
+		shape-rendering: crispEdges;
+	}
+
+	.axis text {
+		font-family: sans-serif;
+		font-size: 11px;
+	}
+}
