@@ -7,6 +7,7 @@ import audioVis from './vis/audioVis';
 import AudioActions from './vis/AudioActions';
 import audioBindings from './vis/audioBindings';
 import followersVis from './vis/followersVis';
+import FollowersActions from './vis/followersActions';
 
 
 export default class VisManager {
@@ -16,8 +17,11 @@ export default class VisManager {
         this.audioVisEl = document.getElementsByClassName('vis-audio')[0];
         this.followersVisEl = document.getElementsByClassName('vis-followers')[0];
 
-        this.trackMetaData = {};
+        this.tracksVis = tracksVis();
+        this.audioVis = audioVis();
+        this.followersVis = followersVis();
 
+        this.trackMetaData = {};
         this.tracksJSONVersion = this.tracksVisEl.getAttribute('data-jsonexport');
     }
 
@@ -26,16 +30,17 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initTracks(parentClass) {
-        const vis = tracksVis().width(800).height(800),
-            actions = new TracksActions(vis, this.tracksVisEl, this.audioVisEl);
+        const actions = new TracksActions(this.tracksVis, this.tracksVisEl, this.audioVisEl);
 
-        dataManager.loadJSON(`./data/tracks-export-${this.tracksJSONVersion}.json`)
-            .then(data => {
-                d3.select('.' + parentClass).select('.svg-container')
-                    .datum(data)
-                    .call(vis);
+        dataManager.loadJSON(
+            `./data/tracks-export-${this.tracksJSONVersion}.json`
+        )
+        .then(data => {
+            d3.select('.' + parentClass).select('.svg-container')
+                .datum(data)
+                .call(this.tracksVis);
 
-                actions.loaded();
+            actions.loaded();
         })
         .catch(error => {
             console.log(error);
@@ -50,38 +55,29 @@ export default class VisManager {
 
         rivets.bind(document.getElementsByClassName(parentClass)[0], {track: this.trackMetaData});
 
-        this.generateAudio(parentClass, request);
-    }
-
-    /**
-     * Generate the audio visualisation
-     * @param  {String} parentClass
-     * @param  {String} request  [Grapnel router URL request]
-     */
-    generateAudio(parentClass, request) {
         dataManager.readJsonFiles([
-                `./data/echonest/${request.params.id}.json`,
-                `./data/tracks-export-${this.tracksJSONVersion}.json`
-            ])
-            .then(json => {
-                const data = json[0].segments,
-                    lastSegment = data[data.length - 1],
-                    trackLength = lastSegment.start + lastSegment.duration,
-                    chartWidth = Math.floor(trackLength * 100);
+            `./data/echonest/${request.params.id}.json`,
+            `./data/tracks-export-${this.tracksJSONVersion}.json`
+        ])
+        .then(json => {
+            const data = json[0].segments,
+                lastSegment = data[data.length - 1],
+                trackLength = lastSegment.start + lastSegment.duration,
+                chartWidth = Math.floor(trackLength * 100);
 
-                this.audioVis = audioVis();
+            audioBindings(json[0], this.trackMetaData);
 
-                audioBindings(json[0], this.trackMetaData);
+            d3.select('.' + parentClass)
+                .call(this.audioVis);
 
-                d3.select('.' + parentClass)
-                    .call(this.audioVis);
+            this.audioVis
+                .width(chartWidth)
+                .height(document.documentElement.clientHeight)
+                .interpolate('cardinal')
+                .draw(data);
 
-                this.audioVis
-                    .width(chartWidth)
-                    .height(document.documentElement.clientHeight)
-                    .draw(data);
-
-                const actions = new AudioActions(this.audioVisEl, json, request.params.id, chartWidth);
+            this.audioActions = new AudioActions(this.audioVisEl, json[1]);
+            this.audioActions.initTrack(data, request.params.id, chartWidth);
         })
         .catch(error => {
             console.log(error);
@@ -93,24 +89,24 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     replayAudio(parentClass, request) {
-        dataManager.readJsonFiles([
-                `./data/echonest/${request.params.id}.json`,
-                `./data/tracks-export-${this.tracksJSONVersion}.json`
-            ])
-            .then(json => {
-                const data = json[0].segments,
-                    lastSegment = data[data.length - 1],
-                    trackLength = lastSegment.start + lastSegment.duration,
-                    chartWidth = Math.floor(trackLength * 100);
+        dataManager.loadJSON(
+            `./data/echonest/${request.params.id}.json`
+        )
+        .then(json => {
+            const data = json.segments,
+                lastSegment = data[data.length - 1],
+                trackLength = lastSegment.start + lastSegment.duration,
+                chartWidth = Math.floor(trackLength * 100);
 
-                audioBindings(json[0], this.trackMetaData);
+            audioBindings(json, this.trackMetaData);
 
-                this.audioVis
-                    .width(chartWidth)
-                    .height(document.documentElement.clientHeight)
-                    .destroy()
-                    .draw(data);
+            this.audioVis
+                .width(chartWidth)
+                .height(document.documentElement.clientHeight)
+                .destroy()
+                .draw(data);
 
+            this.audioActions.initTrack(data, request.params.id, chartWidth)
         })
         .catch(error => {
             console.log(error);
@@ -138,15 +134,16 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initFollowers(parentClass) {
-        const vis = followersVis();
-
-        dataManager.readJsonFiles(
-                ['./data/worldcountries-edit.json', './data/followers-cleaned.json']
-            )
+        dataManager.readJsonFiles([
+                './data/worldcountries-edit.json',
+                './data/followers-cleaned.json'
+            ])
             .then(results => {
                 d3.select('.' + parentClass).select('.svg-container')
                     .datum(results)
-                    .call(vis);
+                    .call(this.followersVis);
+
+                const actions = new FollowersActions(this.followersVis, this.followersVisEl);
             })
             .catch(error => {
                 console.log(error);

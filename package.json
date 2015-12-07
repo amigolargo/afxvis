@@ -16,7 +16,7 @@
     "serve": "npm run serve:src",
     "serve:src": "http-server -p 9090 ./src",
     "serve:dist": "http-server -p 8080 ./dist",
-    "deploy": "firebase"
+    "deploy": "firebase deploy"
   },
   "repository": {
     "type": "git",
@@ -48,9 +48,7 @@
       "grapnel": "npm:grapnel@^0.6.2",
       "gsap": "npm:gsap@^1.18.0",
       "lodash": "npm:lodash@^3.10.1",
-      "play-audio": "npm:play-audio@^0.1.0",
       "rivets": "npm:rivets@^0.8.1",
-      "soundcloud": "npm:soundcloud@^3.0.1",
       "topojson": "npm:topojson@^1.4.19"
     },
     "devDependencies": {

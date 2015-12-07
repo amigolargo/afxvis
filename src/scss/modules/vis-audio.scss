@@ -39,6 +39,29 @@
 		cursor: pointer;
 	}
 
+	.info .btn-pause {
+		background-image: none;
+	}
+
+	.info .btn-pause:before,
+	.info .btn-pause:after {
+		display: block;
+		content: '';
+		background: #fff;
+		width: 0.75vh;
+		height: 45%;
+		position: absolute;
+		top: 27.5%;
+	}
+
+	.info .btn-pause:before {
+		left: 32%;
+	}
+
+	.info .btn-pause:after {
+		right: 32%;
+	}
+
 	.info button:focus {
 		outline: none;
 	}
@@ -82,7 +105,6 @@
 		top: 0;
 		bottom: 0;
 		right: 0;
-		display: none;
 	}
 
 	.bars {

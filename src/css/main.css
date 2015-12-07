@@ -329,6 +329,25 @@ nav {
   opacity: 0.75;
   cursor: pointer; }
 
+.vis-audio .info .btn-pause {
+  background-image: none; }
+
+.vis-audio .info .btn-pause:before,
+.vis-audio .info .btn-pause:after {
+  display: block;
+  content: '';
+  background: #fff;
+  width: 0.75vh;
+  height: 45%;
+  position: absolute;
+  top: 27.5%; }
+
+.vis-audio .info .btn-pause:before {
+  left: 32%; }
+
+.vis-audio .info .btn-pause:after {
+  right: 32%; }
+
 .vis-audio .info button:focus {
   outline: none; }
 
@@ -365,8 +384,7 @@ nav {
   position: fixed;
   top: 0;
   bottom: 0;
-  right: 0;
-  display: none; }
+  right: 0; }
 
 .vis-audio .bars {
   list-style-type: none;
