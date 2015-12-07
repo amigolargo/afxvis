@@ -93,20 +93,19 @@ export default class AudioActions {
     }
 
     bindAudioListeners(file) {
-        var _this = this;
 
-        return new Promise(function(resolve, reject) {
-            _this.audioEl.setAttribute('src', file);
+        return new Promise((resolve, reject) => {
+            this.audioEl.setAttribute('src', file);
 
-            _this.trackLoaded = _this.trackLoaded.bind(_this);
-            _this.initTweens = _this.initTweens.bind(_this);
+            this.trackLoaded = this.trackLoaded.bind(this);
+            this.initTweens = this.initTweens.bind(this);
 
-            _this.audioEl.addEventListener('canplaythrough', () => {
-                _this.trackLoaded();
+            this.audioEl.addEventListener('canplaythrough', () => {
+                this.trackLoaded();
                 resolve();
             });
 
-            _this.audioEl.addEventListener('timeupdate', _this.initTweens);
+            this.audioEl.addEventListener('timeupdate', this.initTweens);
         });
     }
 
@@ -160,16 +159,15 @@ export default class AudioActions {
     }
 
     initTrack(segments, trackId, width) {
-        var _this = this;
 
-        return new Promise(function(resolve, reject) {
-            _this.data = segments;
-            _this.trackId = trackId;
-            _this.chartHeight = document.documentElement.clientHeight;
-            _this.chartWidth = width;
+        return new Promise((resolve, reject) => {
+            this.data = segments;
+            this.trackId = trackId;
+            this.chartHeight = document.documentElement.clientHeight;
+            this.chartWidth = width;
 
             let host = 'https://s3-us-west-2.amazonaws.com/afxvis.io/',
-                filename = _.result( _.find(_this.tracks, 'en_id', _this.trackId), 'filename');
+                filename = _.result( _.find(this.tracks, 'en_id', this.trackId), 'filename');
 
             if (window.location.port === '9090' &&
                 window.location.hostname === '127.0.0.1') {
@@ -180,8 +178,8 @@ export default class AudioActions {
 
             let URL = host + 'mp3/96kbps/' + filename;
 
-            _this.resetTrack();
-            _this.bindAudioListeners(URL).then(() => resolve());
+            this.resetTrack();
+            this.bindAudioListeners(URL).then(() => resolve());
         });
     }
 
