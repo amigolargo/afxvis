@@ -93,13 +93,21 @@ export default class AudioActions {
     }
 
     bindAudioListeners(file) {
-        this.audioEl.setAttribute('src', file);
+        var _this = this;
 
-        this.trackLoaded = this.trackLoaded.bind(this);
-        this.initTweens = this.initTweens.bind(this);
+        return new Promise(function(resolve, reject) {
+            _this.audioEl.setAttribute('src', file);
 
-        this.audioEl.addEventListener('canplaythrough', this.trackLoaded);
-        this.audioEl.addEventListener('timeupdate', this.initTweens);
+            _this.trackLoaded = _this.trackLoaded.bind(_this);
+            _this.initTweens = _this.initTweens.bind(_this);
+
+            _this.audioEl.addEventListener('canplaythrough', () => {
+                _this.trackLoaded();
+                resolve();
+            });
+
+            _this.audioEl.addEventListener('timeupdate', _this.initTweens);
+        });
     }
 
     removeAudioListeners() {
@@ -152,26 +160,29 @@ export default class AudioActions {
     }
 
     initTrack(segments, trackId, width) {
+        var _this = this;
 
-        this.data = segments;
-        this.trackId = trackId;
-        this.chartHeight = document.documentElement.clientHeight;
-        this.chartWidth = width;
+        return new Promise(function(resolve, reject) {
+            _this.data = segments;
+            _this.trackId = trackId;
+            _this.chartHeight = document.documentElement.clientHeight;
+            _this.chartWidth = width;
 
-        let host = 'https://s3-us-west-2.amazonaws.com/afxvis.io/',
-            filename = _.result( _.find(this.tracks, 'en_id', this.trackId), 'filename');
+            let host = 'https://s3-us-west-2.amazonaws.com/afxvis.io/',
+                filename = _.result( _.find(_this.tracks, 'en_id', _this.trackId), 'filename');
 
-        if (window.location.port === '9090' &&
-            window.location.hostname === '127.0.0.1') {
-            host = '/';
-        } else {
-            filename = filename.split(' ').join('+');
-        }
+            if (window.location.port === '9090' &&
+                window.location.hostname === '127.0.0.1') {
+                host = '/';
+            } else {
+                filename = filename.split(' ').join('+');
+            }
 
-        let URL = host + 'mp3/96kbps/' + filename;
+            let URL = host + 'mp3/96kbps/' + filename;
 
-        this.resetTrack();
-        this.bindAudioListeners(URL);
+            _this.resetTrack();
+            _this.bindAudioListeners(URL).then(() => resolve());
+        });
     }
 
     init() {

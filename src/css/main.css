@@ -127,6 +127,24 @@ nav {
     pointer-events: none;
     cursor: default; }
 
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  visibility: hidden;
+  transition: opacity 0.5s;
+  z-index: 100; }
+
+.preloader-visible {
+  visibility: visible;
+  opacity: 0; }
+
+.preloader-fadein {
+  opacity: 1; }
+
 .vis-tracks h1, .vis-tracks h2, .vis-tracks h3, .vis-tracks h4, .vis-tracks h5, .vis-tracks h6 {
   font-size: 6.525vw;
   line-height: 1em;

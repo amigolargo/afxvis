@@ -30,20 +30,26 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initTracks(parentClass) {
-        const actions = new TracksActions(this.tracksVis, this.tracksVisEl, this.audioVisEl);
+        var _this = this;
 
-        dataManager.loadJSON(
-            `./data/tracks-export-${this.tracksJSONVersion}.json`
-        )
-        .then(data => {
-            d3.select('.' + parentClass).select('.svg-container')
-                .datum(data)
-                .call(this.tracksVis);
+        return new Promise(function(resolve, reject) {
 
-            actions.loaded();
-        })
-        .catch(error => {
-            console.log(error);
+            const actions = new TracksActions(_this.tracksVis, _this.tracksVisEl, _this.audioVisEl);
+
+            dataManager.loadJSON(
+                `./data/tracks-export-${_this.tracksJSONVersion}.json`
+            )
+            .then(data => {
+                d3.select('.' + parentClass).select('.svg-container')
+                    .datum(data)
+                    .call(_this.tracksVis);
+
+                actions.loaded();
+                resolve();
+            })
+            .catch(error => {
+                reject(error);
+            });
         });
     }
 
@@ -52,35 +58,40 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initAudio(parentClass, request) {
+        var _this = this;
 
-        rivets.bind(document.getElementsByClassName(parentClass)[0], {track: this.trackMetaData});
+        return new Promise(function(resolve, reject) {
 
-        dataManager.readJsonFiles([
-            `./data/echonest/${request.params.id}.json`,
-            `./data/tracks-export-${this.tracksJSONVersion}.json`
-        ])
-        .then(json => {
-            const data = json[0].segments,
-                lastSegment = data[data.length - 1],
-                trackLength = lastSegment.start + lastSegment.duration,
-                chartWidth = Math.floor(trackLength * 100);
+            rivets.bind(document.getElementsByClassName(parentClass)[0], {track: _this.trackMetaData});
 
-            audioBindings(json[0], this.trackMetaData);
+            dataManager.readJsonFiles([
+                `./data/echonest/${request.params.id}.json`,
+                `./data/tracks-export-${_this.tracksJSONVersion}.json`
+            ])
+            .then(json => {
+                const data = json[0].segments,
+                    lastSegment = data[data.length - 1],
+                    trackLength = lastSegment.start + lastSegment.duration,
+                    chartWidth = Math.floor(trackLength * 100);
 
-            d3.select('.' + parentClass)
-                .call(this.audioVis);
+                audioBindings(json[0], _this.trackMetaData);
 
-            this.audioVis
-                .width(chartWidth)
-                .height(document.documentElement.clientHeight)
-                .interpolate('cardinal')
-                .draw(data);
+                d3.select('.' + parentClass)
+                    .call(_this.audioVis);
 
-            this.audioActions = new AudioActions(this.audioVisEl, json[1]);
-            this.audioActions.initTrack(data, request.params.id, chartWidth);
-        })
-        .catch(error => {
-            console.log(error);
+                _this.audioVis
+                    .width(chartWidth)
+                    .height(document.documentElement.clientHeight)
+                    .interpolate('cardinal')
+                    .draw(data);
+
+                _this.audioActions = new AudioActions(_this.audioVisEl, json[1]);
+                _this.audioActions.initTrack(data, request.params.id, chartWidth)
+                    .then(() => resolve());
+            })
+            .catch(error => {
+                reject(error);
+            });
         });
     }
 
@@ -89,27 +100,33 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     replayAudio(parentClass, request) {
-        dataManager.loadJSON(
-            `./data/echonest/${request.params.id}.json`
-        )
-        .then(json => {
-            const data = json.segments,
-                lastSegment = data[data.length - 1],
-                trackLength = lastSegment.start + lastSegment.duration,
-                chartWidth = Math.floor(trackLength * 100);
+        var _this = this;
 
-            audioBindings(json, this.trackMetaData);
+        return new Promise(function(resolve, reject) {
 
-            this.audioVis
-                .width(chartWidth)
-                .height(document.documentElement.clientHeight)
-                .destroy()
-                .draw(data);
+            dataManager.loadJSON(
+                `./data/echonest/${request.params.id}.json`
+            )
+            .then(json => {
+                const data = json.segments,
+                    lastSegment = data[data.length - 1],
+                    trackLength = lastSegment.start + lastSegment.duration,
+                    chartWidth = Math.floor(trackLength * 100);
 
-            this.audioActions.initTrack(data, request.params.id, chartWidth)
-        })
-        .catch(error => {
-            console.log(error);
+                audioBindings(json, _this.trackMetaData);
+
+                _this.audioVis
+                    .width(chartWidth)
+                    .height(document.documentElement.clientHeight)
+                    .destroy()
+                    .draw(data);
+
+                _this.audioActions.initTrack(data, request.params.id, chartWidth)
+                    .then(() => resolve());
+            })
+            .catch(error => {
+                reject(error);
+            });
         });
     }
 
@@ -118,7 +135,9 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     replayTracks(parentClass, request) {
-        return;
+        return new Promise(function(resolve) {
+            resolve();
+        });
     }
 
     /**
@@ -126,7 +145,9 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     replayFollowers(parentClass, request) {
-        return;
+        return new Promise(function(resolve) {
+            resolve();
+        });
     }
 
     /**
@@ -134,20 +155,25 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initFollowers(parentClass) {
-        dataManager.readJsonFiles([
-                './data/worldcountries-edit.json',
-                './data/followers-cleaned.json'
-            ])
-            .then(results => {
-                d3.select('.' + parentClass).select('.svg-container')
-                    .datum(results)
-                    .call(this.followersVis);
+        var _this = this;
 
-                const actions = new FollowersActions(this.followersVis, this.followersVisEl);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        return new Promise(function(resolve, reject) {
+            dataManager.readJsonFiles([
+                    './data/worldcountries-edit.json',
+                    './data/followers-cleaned.json'
+                ])
+                .then(results => {
+                    d3.select('.' + parentClass).select('.svg-container')
+                        .datum(results)
+                        .call(_this.followersVis);
+
+                    const actions = new FollowersActions(_this.followersVis, _this.followersVisEl);
+                    resolve();
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
     }
 
     /**
@@ -155,16 +181,29 @@ export default class VisManager {
      * @param  {String} vis track | audio | followers,
      */
     replay(vis, request) {
-        let func = `replay${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
-        this[func]('vis-'+ vis, request);
+        let _this = this,
+            func = `replay${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
+
+        return new Promise(function(resolve, reject) {
+            _this[func]('vis-'+ vis, request).then(() => {
+                resolve();
+            })
+        });
     }
 
     /**
      * Kick off the correct init function
      * @param  {String} vis track | audio | followers,
+     * @return {Promise}
      */
     init(vis, request) {
-        let func = `init${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
-        this[func]('vis-'+ vis, request);
+        let _this = this,
+            func = `init${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
+
+        return new Promise(function(resolve, reject) {
+            _this[func]('vis-'+ vis, request).then(() => {
+                resolve();
+            });
+        });
     }
 }

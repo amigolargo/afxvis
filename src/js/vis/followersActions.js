@@ -5,8 +5,8 @@ export default class FollowersActions {
         this.vis = vis;
         this.buttons = el.querySelectorAll('button');
 
-        this.h3El = document.getElementsByTagName('h3')[0],
-        this.h4El = document.getElementsByTagName('h4')[0],
+        this.h3El = el.getElementsByTagName('h3')[0],
+        this.h4El = el.getElementsByTagName('h4')[0],
 
         this.init();
     }

@@ -1,5 +1,6 @@
 import doT from 'dot';
 import VisManager from './visManager';
+import Preloader from './preloader';
 import * as template from './template';
 import TweenLite from '../jspm_packages/npm/gsap@1.18.0/src/uncompressed/TweenLite';
 import '../jspm_packages/npm/gsap@1.18.0/src/uncompressed/plugins/CSSPlugin';
@@ -10,41 +11,46 @@ export default class Navigation {
         this.nav = nav;
         this.links = nav.querySelectorAll('a');
         this.visManager = new VisManager();
+        this.preloader = new Preloader('preloader');
 
         for(let a of this.links) {
 			let href = a.getAttribute('href');
 			this.vis.push(href.split('/')[2]);
 		}
     }
+    goto(request) {
+        this.initSlide(request).then(() => this.navigate(request));
+    }
     initSlide(request) {
-        let visName = this.getName(request);
+        return new Promise((resolve, reject) => {
+            let visName = this.getName(request);
+            this.preloader.show();
 
-        template.loadAndRender({
-            elem: document.querySelector(`.vis-${visName}`),
-            view: visName
-        })
-        .then((response) => {
-            if(response === 'loaded') {
-                this.visManager.init(visName, request);
-            } else if(response === 'cached') {
-                this.visManager.replay(visName, request);
-            }
-            this.navigate(request);
+            template.loadAndRender({
+                elem: document.querySelector(`.vis-${visName}`),
+                view: visName
+            })
+            .then((response) => {
+                if(response === 'loaded') {
+                    this.visManager.init(visName, request).then(() => resolve());
+                } else if(response === 'cached') {
+                    this.visManager.replay(visName, request).then(() => resolve());
+                }
+            });
         });
 
     }
     navigate(request) {
-        return new Promise((resolve, reject) => {
-            for(let a of this.links) {
-                a.classList.add('a-disabled');
-            }
+        this.preloader.hide();
 
-            this.slideNavigation(request).then(() => {
-                for(let a of this.links) {
-                    a.classList.remove('a-disabled');
-                }
-                resolve();
-            });
+        for(let a of this.links) {
+            a.classList.add('a-disabled');
+        }
+
+        this.slideNavigation(request).then(() => {
+            for(let a of this.links) {
+                a.classList.remove('a-disabled');
+            }
         });
     }
     slideNavigation(request) {

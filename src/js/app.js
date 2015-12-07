@@ -13,9 +13,9 @@ const router = new Grapnel({ pushState : false }),
 var routes = {
     '' : request => router.navigate('/tracks'),
     '/' : request => router.navigate('/tracks'),
-    '/tracks' : request => navigation.initSlide(request),
-    '/audio/:id' : request => navigation.initSlide(request),
-    '/followers' : request => navigation.initSlide(request),
+    '/tracks' : request => navigation.goto(request),
+    '/audio/:id' : request => navigation.goto(request),
+    '/followers' : request => navigation.goto(request),
     '/*' : (request, e) => {
         if(!e.parent()) {
             // Handle 404
