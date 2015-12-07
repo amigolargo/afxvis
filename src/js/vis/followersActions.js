@@ -1,4 +1,5 @@
 import d3 from 'd3';
+import timeout from '../util/timeout'
 
 export default class FollowersActions {
     constructor(vis, el) {
@@ -33,18 +34,16 @@ export default class FollowersActions {
         return false;
     }
     init() {
-        var _this = this;
-
         this.updateMapKey = this.updateMapKey.bind(this);
 
         Array.from(this.buttons).forEach((button, index) => {
-            button.onclick = _this.updateMapKey;
+            button.onclick = this.updateMapKey;
         });
 
-        setTimeout(function() {
-            let button = _this.buttons[0];
+        timeout(1).then(() => {
+            let button = this.buttons[0];
             button.click();
-        }, 500);
+        });
 
         this.vis.on('mouseover.country', d => this.countryOver(d));
     }

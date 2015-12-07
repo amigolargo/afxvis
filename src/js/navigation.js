@@ -41,7 +41,6 @@ export default class Navigation {
 
     }
     navigate(request) {
-
         for(let a of this.links) {
             a.classList.add('a-disabled');
         }

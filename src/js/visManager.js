@@ -30,19 +30,17 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initTracks(parentClass) {
-        var _this = this;
+        return new Promise((resolve, reject) => {
 
-        return new Promise(function(resolve, reject) {
-
-            const actions = new TracksActions(_this.tracksVis, _this.tracksVisEl, _this.audioVisEl);
+            const actions = new TracksActions(this.tracksVis, this.tracksVisEl, this.audioVisEl);
 
             dataManager.loadJSON(
-                `./data/tracks-export-${_this.tracksJSONVersion}.json`
+                `./data/tracks-export-${this.tracksJSONVersion}.json`
             )
             .then(data => {
                 d3.select('.' + parentClass).select('.svg-container')
                     .datum(data)
-                    .call(_this.tracksVis);
+                    .call(this.tracksVis);
 
                 actions.loaded();
                 resolve();
@@ -58,15 +56,13 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initAudio(parentClass, request) {
-        var _this = this;
+        return new Promise((resolve, reject) => {
 
-        return new Promise(function(resolve, reject) {
-
-            rivets.bind(document.getElementsByClassName(parentClass)[0], {track: _this.trackMetaData});
+            rivets.bind(document.getElementsByClassName(parentClass)[0], {track: this.trackMetaData});
 
             dataManager.readJsonFiles([
                 `./data/echonest/${request.params.id}.json`,
-                `./data/tracks-export-${_this.tracksJSONVersion}.json`
+                `./data/tracks-export-${this.tracksJSONVersion}.json`
             ])
             .then(json => {
                 const data = json[0].segments,
@@ -74,19 +70,19 @@ export default class VisManager {
                     trackLength = lastSegment.start + lastSegment.duration,
                     chartWidth = Math.floor(trackLength * 100);
 
-                audioBindings(json[0], _this.trackMetaData);
+                audioBindings(json[0], this.trackMetaData);
 
                 d3.select('.' + parentClass)
-                    .call(_this.audioVis);
+                    .call(this.audioVis);
 
-                _this.audioVis
+                this.audioVis
                     .width(chartWidth)
                     .height(document.documentElement.clientHeight)
                     .interpolate('cardinal')
                     .draw(data);
 
-                _this.audioActions = new AudioActions(_this.audioVisEl, json[1]);
-                _this.audioActions.initTrack(data, request.params.id, chartWidth)
+                this.audioActions = new AudioActions(this.audioVisEl, json[1]);
+                this.audioActions.initTrack(data, request.params.id, chartWidth)
                     .then(() => resolve());
             })
             .catch(error => {
@@ -100,10 +96,7 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     replayAudio(parentClass, request) {
-        var _this = this;
-
-        return new Promise(function(resolve, reject) {
-
+        return new Promise((resolve, reject) => {
             dataManager.loadJSON(
                 `./data/echonest/${request.params.id}.json`
             )
@@ -113,15 +106,15 @@ export default class VisManager {
                     trackLength = lastSegment.start + lastSegment.duration,
                     chartWidth = Math.floor(trackLength * 100);
 
-                audioBindings(json, _this.trackMetaData);
+                audioBindings(json, this.trackMetaData);
 
-                _this.audioVis
+                this.audioVis
                     .width(chartWidth)
                     .height(document.documentElement.clientHeight)
                     .destroy()
                     .draw(data);
 
-                _this.audioActions.initTrack(data, request.params.id, chartWidth)
+                this.audioActions.initTrack(data, request.params.id, chartWidth)
                     .then(() => resolve());
             })
             .catch(error => {
@@ -155,9 +148,7 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     initFollowers(parentClass) {
-        var _this = this;
-
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             dataManager.readJsonFiles([
                     './data/worldcountries-edit.json',
                     './data/followers-cleaned.json'
@@ -165,9 +156,9 @@ export default class VisManager {
                 .then(results => {
                     d3.select('.' + parentClass).select('.svg-container')
                         .datum(results)
-                        .call(_this.followersVis);
+                        .call(this.followersVis);
 
-                    const actions = new FollowersActions(_this.followersVis, _this.followersVisEl);
+                    const actions = new FollowersActions(this.followersVis, this.followersVisEl);
                     resolve();
                 })
                 .catch(error => {
@@ -181,11 +172,10 @@ export default class VisManager {
      * @param  {String} vis track | audio | followers,
      */
     replay(vis, request) {
-        let _this = this,
-            func = `replay${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
+        let func = `replay${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
 
-        return new Promise(function(resolve, reject) {
-            _this[func]('vis-'+ vis, request).then(() => {
+        return new Promise((resolve, reject) => {
+            this[func]('vis-'+ vis, request).then(() => {
                 resolve();
             })
         });
@@ -197,11 +187,10 @@ export default class VisManager {
      * @return {Promise}
      */
     init(vis, request) {
-        let _this = this,
-            func = `init${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
+        let func = `init${vis.charAt(0).toUpperCase() + vis.slice(1)}`;
 
-        return new Promise(function(resolve, reject) {
-            _this[func]('vis-'+ vis, request).then(() => {
+        return new Promise((resolve, reject) => {
+            this[func]('vis-'+ vis, request).then(() => {
                 resolve();
             });
         });
