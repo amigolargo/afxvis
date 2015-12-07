@@ -41,7 +41,6 @@ export default class Navigation {
 
     }
     navigate(request) {
-        this.preloader.hide();
 
         for(let a of this.links) {
             a.classList.add('a-disabled');
@@ -62,6 +61,8 @@ export default class Navigation {
             docHeight = document.documentElement.clientHeight;
 
         return new Promise((resolve, reject) => {
+
+            this.preloader.hide();
 
             if (navDirection !== 'none') {
 
