@@ -60,6 +60,8 @@
 	.svg-container {
 		text-align: center;
 		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
 		z-index: 0;
 	}
 

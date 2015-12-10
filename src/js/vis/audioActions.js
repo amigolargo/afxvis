@@ -28,6 +28,12 @@ export default class AudioActions {
         this._initTweens = this.initTweens.bind(this);
         this._togglePlay = this.togglePlay.bind(this);
 
+        var _this = this;
+
+        window.onblur = function() {
+            _this.pauseTrack();
+        }
+
         this.init();
     }
 
@@ -35,7 +41,7 @@ export default class AudioActions {
         let pitchTotal = pitches.reduce((total, n) => total + n, 0);
 
         pitches.forEach((pitch, i) => {
-            TweenLite.to(Array.from($collection)[i], duration,
+            TweenLite.to(Array.from($collection)[i], 0.15,
                 {css: {height: pitch / pitchTotal * 100 + '%'}, overwrite: 'all'}
             );
         });
@@ -98,7 +104,6 @@ export default class AudioActions {
     }
 
     bindAudioListeners(file) {
-
         this.resolveTrack;
         this.rejectTrack;
 

@@ -38,13 +38,14 @@ export default class Navigation {
     showNav() {
         let navWidth = this.nav.offsetWidth;
         this.nav.classList.add('nav-animating', 'nav-visible');
-        TweenLite.to([this.nav, this.main], 1, {x: navWidth, onCompleteScope: this, onComplete: function() {
+        TweenLite.to(this.nav, .8, {x: navWidth, ease: Cubic.easeOut});
+        TweenLite.to(this.main, .8, {x: navWidth, ease: Quad.easeOut, onCompleteScope: this, onComplete: function() {
             this.nav.classList.remove('nav-animating');
         }});
     }
     hideNav() {
         this.nav.classList.remove('nav-visible');
-        TweenLite.to([this.nav, this.main], 1, {x: 0});
+        TweenLite.to([this.main, this.nav], .8, {x: 0, ease: Cubic.easeOut});
     }
     goto(request) {
         this.initSlide(request).then(() => this.navigate(request));
@@ -60,8 +61,10 @@ export default class Navigation {
             })
             .then((response) => {
                 if(response === 'loaded') {
+                    console.log('loaded');
                     this.visManager.init(visName, request).then(() => resolve());
                 } else if(response === 'cached') {
+                    console.log('cached');
                     this.visManager.replay(visName, request).then(() => resolve());
                 }
             });
@@ -69,6 +72,7 @@ export default class Navigation {
 
     }
     navigate(request) {
+        this.hideNav();
 
         for(let a of this.links) {
             a.classList.remove('a-active');

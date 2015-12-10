@@ -4,7 +4,7 @@
 
 .vis-tracks {
 	h1, h2, h3, h4, h5, h6 {
-		font-size: 6.525vw;
+		font-size: 6.525vh;
 		line-height: 1em;
 		margin: 0;
 		color: #fff;
@@ -19,11 +19,11 @@
 
 	.subtitle {
 		font-weight: 300;
-		font-size: 4.3065vw;
+		font-size: 4.3065vh;
 	}
 
 	.subtitle-bold {
-		font-size: 6.525vw;
+		font-size: 6.525vh;
 		font-weight: 700;
 	}
 
@@ -81,18 +81,17 @@
 
 	.frame {
 		background: #fff;
-		padding: 2.5% 5%;
-		max-width: 836px;
 		margin: 0 auto;
 	}
 
 	.html-content {
 		position: absolute;
-		max-width: 720px;
-		width: 90%;
-		padding-bottom: 90%;
-		height: 0;
+		width: 90vh;
+		height: 90vh;
 		z-index: 0;
+  		top: 50%;
+  		left: 50%;
+  		transform: translate3D(-50%, -50%, 0);
 	}
 
 	.html-content:after {
@@ -109,13 +108,15 @@
 	}
 
 	.svg-container {
-		max-width: 720px;
 		position: absolute;
-		width: 90%;
-		padding-bottom: 90%;
+		width: 90vh;
+		height: 90vh;
 		vertical-align: middle;
 		overflow: hidden;
 		z-index: 10;
+		top: 50%;
+  		left: 50%;
+  		transform: translate3D(-50%, -50%, 0);
 	}
 
 	.svg-content {
@@ -123,11 +124,6 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-	}
-
-	.intro {
-		margin-top: 102.5%;
-		padding-left: 1em;
 	}
 
 	.description {
@@ -138,6 +134,7 @@
 	.key {
 		font-size: 0.703125rem;
 		text-align: right;
+		padding: 2vh;
 	}
 
 	.key dt, .key dd, .key ul, .key li {
@@ -189,25 +186,5 @@
 		width: 8px;
 		height: 8px;
 		border-radius: 4px;
-	}
-
-
-	@media (min-width: 815px) {
-		.intro {
-			margin-top: 730px;
-		}
-		.svg-container,
-		.html-content {
-			padding-bottom: 720px;
-		}
-		h1, h2, h3, h4, h5, h6 {
-			font-size: 3.33rem;
-		}
-		.subtitle {
-			font-size: 2.1978rem;
-		}
-		.subtitle-bold {
-			font-size: 3.33rem;
-		}
 	}
 }

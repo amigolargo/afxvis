@@ -78,7 +78,7 @@ export default class VisManager {
                 this.audioVis
                     .width(chartWidth)
                     .height(document.documentElement.clientHeight)
-                    .interpolate('cardinal')
+                    .interpolate('basis')
                     .draw(data);
 
                 this.audioActions = new AudioActions(this.audioVisEl, json[1]);
@@ -96,6 +96,7 @@ export default class VisManager {
      * @param  {String} parentClass
      */
     replayAudio(parentClass, request) {
+
         return new Promise((resolve, reject) => {
             dataManager.loadJSON(
                 `./data/echonest/${request.params.id}.json`

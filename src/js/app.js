@@ -13,15 +13,25 @@ let trackId = document.getElementsByClassName('vis-audio')[0].getAttribute('data
  * Define Grapnel routes
  */
 var routes = {
-    '' : request => router.navigate('/tracks'),
-    '/' : request => router.navigate('/tracks'),
-    '/audio' : request => router.navigate('/audio/' + trackId),
-    '/tracks' : (request, event) => navigation.goto(request, event),
-    '/audio/:id' : (request, event) => {
-        trackId = request.params.id;
-        navigation.goto(request, event);
+    '' : request => {
+        request.match.input = '/tracks',
+        navigation.goto(request)
     },
-    '/followers' : (request, event) => navigation.goto(request, event),
+    '/' : request => {
+        request.match.input = '/tracks',
+        navigation.goto(request)
+    },
+    '/audio' : request => {
+        request.params.id = trackId;
+        request.match.input = '/audio/' + trackId,
+        navigation.goto(request)
+    },
+    '/tracks' : request => navigation.goto(request),
+    '/audio/:id' : request => {
+        trackId = request.params.id;
+        navigation.goto(request);
+    },
+    '/followers' : request => navigation.goto(request),
     '/*' : (request, event) => {
         if(!event.parent()) {
             // Handle 404

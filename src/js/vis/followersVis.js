@@ -29,7 +29,7 @@ d3.afx.followers = function() {
             topology = data[0];
             geometries = topology.objects.worldcountries.geometries;
             projection = d3.geo.equirectangular();
-            totalFollowers = 82100;     // TODO fix this up to live data
+            totalFollowers = 83100;     // TODO fix this up to live data
             colors = chroma.scale([
                         'rgba(255,255,255,0.2)',
                         'rgba(255,255,255,1)'
@@ -102,7 +102,7 @@ d3.afx.followers = function() {
     vis.updateMap = function(key) {
         let value = function(d) {
                 if (isNaN(d.properties[key])) {
-                    // console.log(d);
+                    console.log(d);
                 }
                 return +d.properties[key];                      // get the property as per our button
             },
