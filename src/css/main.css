@@ -106,6 +106,10 @@ body {
   padding: 0;
   overflow: hidden; }
 
+[role="main"] {
+  width: 100%;
+  height: 100%; }
+
 .vis {
   position: absolute;
   height: 100%;
@@ -118,14 +122,95 @@ body {
   transform: translateY(0); }
 
 nav {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
-  background: #ccc;
-  z-index: 10; }
-  nav .a-disabled {
-    pointer-events: none;
-    cursor: default; }
+  bottom: 0;
+  left: -33.333%;
+  width: 33.333%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 20;
+  transition: box-shadow 0.4s; }
+  nav h1 {
+    font-size: 3.375vh;
+    color: #fff;
+    font-weight: 100;
+    line-height: 1.2em; }
+  nav button {
+    position: absolute;
+    width: 6.5vh;
+    height: 6.5vh;
+    right: -9.2vh;
+    top: 2.75vh;
+    background-image: url(../img/hamburger.svg);
+    background-size: 200% 100%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s; }
+    nav button:focus {
+      outline: none; }
+    nav button:hover {
+      opacity: 0.66; }
+  nav ul {
+    margin: 1em 0;
+    font-size: 2.25vh;
+    line-height: 1.2em; }
+  nav li {
+    color: #fff;
+    font-weight: 100;
+    line-height: 1.2em; }
+    nav li a {
+      text-decoration: none;
+      position: relative;
+      padding-left: 0.75em; }
+      nav li a:before {
+        content: '';
+        display: block;
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        width: 0.3em;
+        height: 0.3em;
+        position: absolute;
+        top: 45%;
+        left: 0; }
+      nav li a:hover {
+        color: #c6d300; }
+        nav li a:hover:before {
+          border: 1px solid #c6d300; }
+    nav li .a-active:hover:before {
+      background: #c6d300;
+      border: 1px solid #c6d300; }
+    nav li .a-active:before {
+      background: #fff;
+      border: 1px solid #fff; }
+    nav li .a-disabled {
+      pointer-events: none;
+      cursor: default; }
+  nav p {
+    color: #fff;
+    font-size: 1.5vh;
+    line-height: 1.2em;
+    margin: 1em 0;
+    max-width: 38em; }
+    nav p a {
+      display: inline-block;
+      border-bottom: 1px dotted rgba(255, 255, 255, 0.5);
+      text-decoration: none; }
+  nav small {
+    font-size: 1.25vh;
+    line-height: 1.2em;
+    display: inline-block; }
+  nav .info {
+    position: absolute;
+    bottom: 0;
+    padding: 0 2vh 2.5vh; }
+  nav .foot {
+    margin-bottom: 0; }
+
+.nav-visible {
+  box-shadow: 5px 0 15px 0 rgba(0, 0, 0, 0.25); }
+  .nav-visible button {
+    background-position: -100% 0; }
 
 .preloader {
   position: fixed;
@@ -136,7 +221,7 @@ nav {
   background-color: rgba(0, 0, 0, 0.25);
   visibility: hidden;
   transition: opacity 0.5s;
-  z-index: 100; }
+  z-index: 10; }
 
 .preloader-visible {
   visibility: visible;
@@ -500,13 +585,13 @@ nav {
 .vis-followers {
   background-color: #c6d300; }
   .vis-followers h1, .vis-followers h2, .vis-followers h3, .vis-followers h4, .vis-followers h5, .vis-followers h6 {
-    font-size: 4.5vh;
-    line-height: 1em;
+    font-size: 3.375vh;
+    line-height: 1.2em;
     margin: 0;
     color: #fff;
     position: relative;
     z-index: 1;
-    padding-left: 1em; }
+    padding-left: 0.6em; }
   .vis-followers h3, .vis-followers h4 {
     display: inline-block;
     font-weight: 300; }
@@ -518,15 +603,20 @@ nav {
     top: -0.25em;
     right: -0.75em; }
   .vis-followers p {
-    font-size: 4.5vh;
-    padding-left: 1em;
-    margin-top: .5em; }
+    font-size: 3.375vh;
+    padding-left: 0.6em;
+    margin-top: .5em;
+    line-height: 1.2em; }
+  .vis-followers .foot {
+    margin-bottom: 0; }
   .vis-followers small {
-    font-size: 1.5vh;
-    color: #fff; }
+    font-size: 1.25vh;
+    color: #fff;
+    line-height: 1.2em;
+    display: inline-block; }
   .vis-followers #text {
     position: absolute;
-    margin-top: -16%;
+    bottom: 2.5vh;
     z-index: 10;
     pointer-events: none; }
   .vis-followers .svg-container {
@@ -544,11 +634,11 @@ nav {
     stroke-width: 1;
     stroke: #fff; }
   .vis-followers form {
-    font-size: 4.5vh;
-    padding-left: 1em; }
+    font-size: 3.375vh;
+    padding-left: 0.6em; }
   .vis-followers form button {
     font-weight: 500;
-    font-size: 2vh; }
+    font-size: 1.5vh; }
   .vis-followers button {
     border: none;
     background: rgba(255, 255, 255, 0.333);
@@ -557,7 +647,8 @@ nav {
     font-weight: 300;
     color: #c6d300;
     cursor: pointer;
-    transition: background 0.3s ease-out; }
+    transition: background 0.3s ease-out;
+    margin-right: 0.5em; }
   .vis-followers button:hover,
   .vis-followers button.active {
     background: white; }

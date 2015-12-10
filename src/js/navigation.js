@@ -10,13 +10,41 @@ export default class Navigation {
         this.vis = [];
         this.nav = nav;
         this.links = nav.querySelectorAll('a');
+        this.navBtn = nav.querySelector('button');
+        this.main = document.querySelector('[role="main"]');
         this.visManager = new VisManager();
         this.preloader = new Preloader('preloader');
+
+        this._toggleNav = this.toggleNav.bind(this);
 
         for(let a of this.links) {
 			let href = a.getAttribute('href');
 			this.vis.push(href.split('/')[2]);
 		}
+
+        this.init();
+    }
+    toggleNav() {
+        if(this.nav.classList.contains('nav-animating')) {
+            return false;
+        } else if(this.nav.classList.contains('nav-visible')) {
+            console.log('hide');
+            this.hideNav();
+        } else {
+            console.log('show');
+            this.showNav();
+        }
+    }
+    showNav() {
+        let navWidth = this.nav.offsetWidth;
+        this.nav.classList.add('nav-animating', 'nav-visible');
+        TweenLite.to([this.nav, this.main], 1, {x: navWidth, onCompleteScope: this, onComplete: function() {
+            this.nav.classList.remove('nav-animating');
+        }});
+    }
+    hideNav() {
+        this.nav.classList.remove('nav-visible');
+        TweenLite.to([this.nav, this.main], 1, {x: 0});
     }
     goto(request) {
         this.initSlide(request).then(() => this.navigate(request));
@@ -41,9 +69,14 @@ export default class Navigation {
 
     }
     navigate(request) {
+
         for(let a of this.links) {
+            a.classList.remove('a-active');
             a.classList.add('a-disabled');
         }
+
+        document.querySelector(`[href*='/#/${request.match.input.split('/')[1]}']`)
+            .classList.add('a-active');
 
         this.slideNavigation(request).then(() => {
             for(let a of this.links) {
@@ -102,5 +135,8 @@ export default class Navigation {
     	}
 
     	return this.navDirection === undefined ? 'none' : this.navDirection;
+    }
+    init() {
+        this.navBtn.addEventListener('click', this._toggleNav);
     }
 }

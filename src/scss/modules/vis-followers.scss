@@ -7,13 +7,13 @@
 	background-color: #c6d300;
 
 	h1, h2, h3, h4, h5, h6 {
-		font-size: 4.5vh;
-		line-height: 1em;
+		font-size: 3.375vh;
+		line-height: 1.2em;
 		margin: 0;
 		color: #fff;
 		position: relative;
 		z-index: 1;
-		padding-left: 1em;
+		padding-left: 0.6em;
 	}
 
 	h3, h4 {
@@ -33,19 +33,26 @@
 	}
 
 	p {
-		font-size: 4.5vh;
-		padding-left: 1em;
+		font-size: 3.375vh;
+		padding-left: 0.6em;
 		margin-top: .5em;
+		line-height: 1.2em;
+	}
+
+	.foot {
+		margin-bottom: 0;
 	}
 
 	small {
-		font-size: 1.5vh;
+		font-size: 1.25vh;
 		color: #fff;
+		line-height: 1.2em;
+		display: inline-block;
 	}
 
 	#text {
 		position: absolute;
-		margin-top: -16%;
+		bottom: 2.5vh;
 		z-index: 10;
 		pointer-events: none;
 	}
@@ -73,13 +80,13 @@
 	}
 
 	form {
-		font-size: 4.5vh;
-		padding-left: 1em;
+		font-size: 3.375vh;
+		padding-left: 0.6em;
 	}
 
 	form button {
 		font-weight: 500;
-		font-size: 2vh;
+		font-size: 1.5vh;
 	}
 
 
@@ -92,6 +99,7 @@
 		color: #c6d300;
 		cursor: pointer;
 		transition: background 0.3s ease-out;
+		margin-right: 0.5em;
 	}
 
 	button:hover,

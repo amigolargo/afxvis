@@ -8,18 +8,24 @@
 <body>
 
 <nav>
-    <ul>
-        <li><a href="/#/tracks">Tracks</a></li>
-        <li><a href="/#/audio/TRKXYDH1511481533E">Audio</a></li>
-        <li><a href="/#/followers">Followers</a></li>
-    </ul>
+    <button></button>
+    <section class="info">
+        <h1>Visualising<br>user18081971</h1>
+        <ul>
+            <li><a href="/#/tracks">Tracks</a></li>
+            <li><a href="/#/audio">Audio</a></li>
+            <li><a href="/#/followers">Followers</a></li>
+        </ul>
+        <p class="description">In early 2015, <a href="https://en.wikipedia.org/wiki/Aphex_Twin" target="_blank">Aphex Twin</a> began uploading rare and unreleased music to an <a href="https://soundcloud.com/user18081971" target="_blank">anonymous Soundcloud account</a>. By late October he had uploaded 261 tracks, and a <a href="http://user18081971.watmm.com/" target="_blank">fan voting site</a> had appeared to help Aphex Twin himself decide which tracks should get remastered and released traditionally. This visualisation plots fan votes against Soundcloud plays to create a new visual means to explore the archive. </p><p><a href="http://www.twitter.com/tomlongmate" target="_blank"><i>@tomlongmate</i></a></p>
+        <p class="foot"><small><sup>*</sup>Data: Soundcloud/<a href="http://user18081971.watmm.com" target="_blank">user18081971.watmm.com</a> voting site. Built with <a href="http://d3js.org/" target="_blank">D3</a></small></p>
+    </section>
 </nav>
 
 <div class="preloader"></div>
 
 <div role="main">
     <figure class="vis vis-tracks" data-jsonexport="2-12-2015"></figure>
-    <figure class="vis vis-audio"></figure>
+    <figure class="vis vis-audio" data-defaultid="TRKXYDH1511481533E"></figure>
     <figure class="vis vis-followers"></figure>
 </div>
 
@@ -28,5 +34,7 @@
 <script>
     System.import('./js/app');
 </script>
+<!-- Live Reload, dev only -->
+<script src="http://localhost:9091"></script>
 </body>
 </html>

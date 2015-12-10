@@ -11,12 +11,14 @@
     "build:scripts": "./node_modules/.bin/jspm bundle-sfx ./src/js/app ./dist/js/app.min.js --minify",
     "build:styles": "postcss --use autoprefixer src/css/main.css | cssmin > dist/css/main.css",
     "build:html": "./node_modules/.bin/html-dist src/index.html --remove-all --minify --insert js/app.min.js -o dist/index.html",
-    "watch": "npm run watch:styles",
+    "watch": "parallelshell 'npm run watch:styles' 'npm run watch:live-reload'",
     "watch:styles": "nodemon -e scss -x node-sass --include-path scss src/scss/main.scss src/css/main.css",
+    "watch:live-reload": "live-reload --port 9091 ./src",
     "serve": "npm run serve:src",
     "serve:src": "http-server -p 9090 ./src",
     "serve:dist": "http-server -p 8080 ./dist",
-    "deploy": "firebase deploy"
+    "deploy:prod": "firebase deploy",
+    "deploy:dev": "firebase deploy -f afxvis-dev"
   },
   "repository": {
     "type": "git",
@@ -31,9 +33,11 @@
     "html-dist": "^0.1.0",
     "http-server": "^0.8.5",
     "jspm": "^0.16.15",
+    "live-reload": "^1.1.0",
     "node-sass": "^3.4.2",
     "nodemon": "^1.8.1",
     "npm-build-tools": "^2.2.5",
+    "parallelshell": "^2.0.0",
     "postcss": "^5.0.12",
     "postcss-cli": "^2.3.2"
   },

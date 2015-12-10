@@ -23,6 +23,11 @@ export default class AudioActions {
         this.progress;
         this.elapsed;
 
+        this._trackLoaded = this.trackLoaded.bind(this);
+        this._trackMetaLoaded = this.trackMetaLoaded.bind(this);
+        this._initTweens = this.initTweens.bind(this);
+        this._togglePlay = this.togglePlay.bind(this);
+
         this.init();
     }
 
@@ -94,26 +99,27 @@ export default class AudioActions {
 
     bindAudioListeners(file) {
 
-        return new Promise((resolve, reject) => {
-            this.audioEl.setAttribute('src', file);
+        this.resolveTrack;
+        this.rejectTrack;
 
-            this.trackLoaded = this.trackLoaded.bind(this);
-            this.initTweens = this.initTweens.bind(this);
+        this.audioEl.setAttribute('src', file);
+        this.audioEl.addEventListener('loadedmetadata', this._trackMetaLoaded);
+        this.audioEl.addEventListener('canplaythrough', this._trackLoaded);
+        this.audioEl.addEventListener('timeupdate', this._initTweens);
 
-            this.audioEl.addEventListener('canplaythrough', () => {
-                this.trackLoaded();
-                resolve();
-            });
-
-            this.audioEl.addEventListener('timeupdate', this.initTweens);
-        });
+        return new Promise(function(resolve, reject) { // resolved externally in trackMetaLoaded()
+            this.resolveTrackMeta = resolve;
+            this.rejectTrackMeta = reject;
+        }.bind(this));
     }
 
     removeAudioListeners() {
         cancelAnimationFrame(this.loop);
-        this.audioEl.removeEventListener('canplaythrough', this.trackLoaded);
-        this.audioEl.removeEventListener('timeupdate', this.initTweens);
-        this.$playBtn.removeEventListener('click', this.togglePlay);
+
+        this.audioEl.removeEventListener('loadedmetadata', this._trackMetaLoaded);
+        this.audioEl.removeEventListener('canplaythrough', this._trackLoaded);
+        this.audioEl.removeEventListener('timeupdate', this._initTweens);
+        this.$playBtn.removeEventListener('click', this._togglePlay);
     }
 
     initTweens() {
@@ -148,18 +154,19 @@ export default class AudioActions {
         this.removeAudioListeners();
     }
 
+    trackMetaLoaded() {
+        this.resolveTrackMeta();
+    }
+
     trackLoaded() {
         let pitches = this.data[0].pitches;
 
         this.sizeBars(this.$bars, pitches);
         this.sizeBars(this.$cloneBars, pitches);
-
-        this.togglePlay = this.togglePlay.bind(this);
-        this.$playBtn.addEventListener('click', this.togglePlay);
+        this.$playBtn.addEventListener('click', this._togglePlay);
     }
 
     initTrack(segments, trackId, width) {
-
         return new Promise((resolve, reject) => {
             this.data = segments;
             this.trackId = trackId;

@@ -7,17 +7,23 @@ import Navigation from './navigation';
 const router = new Grapnel({ pushState : false }),
     navigation = new Navigation(document.querySelector('nav'));
 
+let trackId = document.getElementsByClassName('vis-audio')[0].getAttribute('data-defaultid');
+
 /**
  * Define Grapnel routes
  */
 var routes = {
     '' : request => router.navigate('/tracks'),
     '/' : request => router.navigate('/tracks'),
-    '/tracks' : request => navigation.goto(request),
-    '/audio/:id' : request => navigation.goto(request),
-    '/followers' : request => navigation.goto(request),
-    '/*' : (request, e) => {
-        if(!e.parent()) {
+    '/audio' : request => router.navigate('/audio/' + trackId),
+    '/tracks' : (request, event) => navigation.goto(request, event),
+    '/audio/:id' : (request, event) => {
+        trackId = request.params.id;
+        navigation.goto(request, event);
+    },
+    '/followers' : (request, event) => navigation.goto(request, event),
+    '/*' : (request, event) => {
+        if(!event.parent()) {
             // Handle 404
         }
     }

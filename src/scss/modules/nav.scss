@@ -3,13 +3,127 @@
 // =============================================================================
 
 nav {
-    position: fixed;
+	h1 {
+		font-size: 3.375vh;
+		color: #fff;
+		font-weight: 100;
+		line-height: 1.2em;
+	}
+    position: absolute;
     top: 0;
-    left: 0;
-    background: #ccc;
-    z-index: 10;
-    .a-disabled {
-    	pointer-events: none;
-    	cursor: default;
+    bottom: 0;
+    left: -33.333%;
+    width: 33.333%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 20;
+    transition: box-shadow 0.4s;
+
+	button {
+		position: absolute;
+		width: 6.5vh;
+		height: 6.5vh;
+		right: -9.2vh;
+		top: 2.75vh;
+		background-image: url(../img/hamburger.svg);
+		background-size: 200% 100%;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+		opacity: 0.5;
+		transition: opacity 0.3s;
+		&:focus {
+			outline: none;
+		}
+		&:hover {
+			opacity: 0.66;
+		}
+	}
+
+	ul {
+		margin: 1em 0;
+		font-size: 2.25vh;
+		line-height: 1.2em;
+	}
+
+	li {
+		color: #fff;
+		font-weight: 100;
+		line-height: 1.2em;
+		a {
+			text-decoration: none;
+			position: relative;
+			padding-left: 0.75em;
+			&:before {
+				content: '';
+				display: block;
+				border: 1px solid rgba(255, 255, 255, 0.75);
+				width: 0.3em;
+				height: 0.3em;
+				position: absolute;
+				top: 45%;
+				left: 0;
+			}
+			&:hover {
+				color: #c6d300;
+				&:before {
+					border: 1px solid #c6d300;
+				}
+			}
+		}
+
+		.a-active {
+			&:hover {
+				&:before {
+					background: #c6d300;
+					border: 1px solid #c6d300;
+				}
+			}
+			&:before {
+				background: #fff;
+				border: 1px solid #fff;
+			}
+		}
+
+	    .a-disabled {
+	    	pointer-events: none;
+	    	cursor: default;
+		}
+	}
+
+	p {
+		color: #fff;
+		font-size: 1.5vh;
+		line-height: 1.2em;
+		margin: 1em 0;
+		max-width: 38em;
+		a {
+			display: inline-block;
+			border-bottom: 1px dotted rgba(255, 255, 255, 0.5);
+			text-decoration: none;
+		}
+	}
+
+	small {
+		font-size: 1.25vh;
+		line-height: 1.2em;
+		display: inline-block;
+	}
+
+	.info {
+		position: absolute;
+		bottom: 0;
+		padding: 0 2vh 2.5vh;
+	}
+
+	.foot {
+		margin-bottom: 0;
+	}
+}
+
+.nav-visible {
+	box-shadow: 5px 0 15px 0 rgba(0, 0, 0, 0.25);
+
+	button {
+		background-position: -100% 0;
 	}
 }
