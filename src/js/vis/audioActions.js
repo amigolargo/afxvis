@@ -56,9 +56,13 @@ export default class AudioActions {
     trackProgress(duration) {
 
         if(!this.trackIsPaused) {
+
             this.elapsed = performance.now() - this.startTime;
             this.progress = this.elapsed / duration;
-            this.$progress.setAttribute('value', this.progress / 10);
+
+            if(this.progress > 2) { // stop progress bar reporting incorrectly before the track timeupdate event
+                this.$progress.setAttribute('value', this.progress / 10);
+            }
 
             let segment = _.first(_.map(_.dropWhile(this.data, n => {
                 return n.start <= (this.elapsed / 1000);
@@ -74,13 +78,15 @@ export default class AudioActions {
 
     playTrack() {
         this.audioEl.play();
+        this.startTime = performance.now();
         this.$bars[0].parentNode.classList.remove('bars-paused');
         this.$playBtn.classList.add('btn-pause');
         this.trackInit = false;
-        this.trackIsPaused = false;
         if(this.tween) {
             this.tween.resume();
         }
+        console.log('play track');
+        this.trackIsPaused = false;
     }
 
     pauseTrack() {
@@ -88,11 +94,10 @@ export default class AudioActions {
         this.audioEl.pause();
         this.killPitchTweens();
         this.$playBtn.classList.remove('btn-pause');
-        this.trackIsPaused = true;
-
         if(this.tween) {
             this.tween.pause();
         }
+        this.trackIsPaused = true;
     }
 
     togglePlay() {
@@ -129,6 +134,8 @@ export default class AudioActions {
 
     initTweens() {
         if(this.audioEl.currentTime > 0 && !this.trackInit) {
+
+            console.log('init tweens');
 
             let elapsed = this.audioEl.currentTime,
                 finalSegmentStart = this.data[this.data.length - 1].start,
