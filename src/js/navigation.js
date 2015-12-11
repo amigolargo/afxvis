@@ -44,7 +44,6 @@ export default class Navigation {
         }});
     }
     hideNav() {
-        console.log('hieddddd');
         this.nav.classList.remove('nav-visible');
         TweenLite.to([this.main, this.nav], .8, {x: 0, ease: Cubic.easeOut});
     }

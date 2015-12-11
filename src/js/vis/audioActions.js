@@ -216,8 +216,8 @@ export default class AudioActions {
             }
         }
 
-        window.onresize = function () {
+        window.onresize = debounce(function() {
             location.reload(true);
-        }
+        }, 200);
     }
 }
