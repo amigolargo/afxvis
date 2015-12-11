@@ -108,6 +108,7 @@ nav {
 		position: absolute;
 		bottom: 0;
 		padding: 0 2vh 2.5vh;
+		width: 100%;
 	}
 
 	.foot {
@@ -115,7 +116,7 @@ nav {
 	}
 }
 
-@media (min-width:794px) {
+@media (min-width:720px) {
 	nav {
 		left: -33.333%;
 	}

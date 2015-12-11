@@ -9,6 +9,7 @@ import _result from 'lodash/object/result';
 import timeout from '../util/timeout';
 import TweenLite from '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/TweenLite';
 import '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/plugins/CSSPlugin';
+import debounce from 'debounce';
 
 export default class AudioActions {
     constructor(el, tracksData) {
@@ -195,7 +196,7 @@ export default class AudioActions {
             this.resetTrack();
             this.bindAudioListeners(URL).then(() => resolve());
 
-            timeout(1).then(() => this.playTrack());
+            // timeout(1).then(() => this.playTrack());
         });
     }
 
@@ -213,6 +214,10 @@ export default class AudioActions {
                 _this.pauseTrack();
                 _this.playTrack();
             }
+        }
+
+        window.onresize = function () {
+            location.reload(true);
         }
     }
 }

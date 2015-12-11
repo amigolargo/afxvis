@@ -18,6 +18,7 @@ System.config({
     "chroma-js": "npm:chroma-js@1.1.1",
     "core-js": "npm:core-js@1.2.6",
     "d3": "github:mbostock/d3@3.5.9",
+    "debounce": "npm:debounce@1.0.0",
     "dot": "npm:dot@1.0.3",
     "grapnel": "npm:grapnel@0.6.2",
     "gsap": "npm:gsap@1.18.0",
@@ -133,6 +134,9 @@ System.config({
       "brfs": "npm:brfs@1.4.1",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "path": "github:jspm/nodelibs-path@0.1.0"
+    },
+    "npm:debounce@1.0.0": {
+      "date-now": "npm:date-now@1.0.1"
     },
     "npm:domify@1.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"

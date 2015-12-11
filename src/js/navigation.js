@@ -4,6 +4,7 @@ import Preloader from './preloader';
 import * as template from './template';
 import TweenLite from '../jspm_packages/npm/gsap@1.18.0/src/uncompressed/TweenLite';
 import '../jspm_packages/npm/gsap@1.18.0/src/uncompressed/plugins/CSSPlugin';
+import debounce from 'debounce';
 
 export default class Navigation {
     constructor(nav) {
@@ -16,6 +17,7 @@ export default class Navigation {
         this.preloader = new Preloader('preloader');
 
         this._toggleNav = this.toggleNav.bind(this);
+        this._hideNav = this.hideNav.bind(this);
 
         for(let a of this.links) {
 			let href = a.getAttribute('href');
@@ -42,6 +44,7 @@ export default class Navigation {
         }});
     }
     hideNav() {
+        console.log('hieddddd');
         this.nav.classList.remove('nav-visible');
         TweenLite.to([this.main, this.nav], .8, {x: 0, ease: Cubic.easeOut});
     }
@@ -143,6 +146,8 @@ export default class Navigation {
     	return this.navDirection === undefined ? 'none' : this.navDirection;
     }
     init() {
+        var _this = this;
+        window.onresize = debounce(_this._hideNav, 200);
         this.navBtn.addEventListener('click', this._toggleNav);
     }
 }
