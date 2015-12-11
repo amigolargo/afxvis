@@ -221,13 +221,38 @@ nav {
   visibility: hidden;
   transition: opacity 0.5s;
   z-index: 10; }
+  .preloader span {
+    position: absolute;
+    transition: opacity 1s;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    font-size: 6.525vh;
+    font-weight: 700;
+    color: #fff; }
+    .preloader span:after {
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: bottom;
+      animation-name: ellipsis;
+      animation-duration: 1.5s;
+      animation-timing-function: steps(4, end);
+      animation-delay: 0.25s;
+      animation-iteration-count: infinite;
+      animation-fill-mode: none;
+      content: "...";
+      width: 0; }
 
 .preloader-visible {
   visibility: visible;
   opacity: 0; }
+  .preloader-visible span {
+    opacity: 1; }
 
 .preloader-fadein {
   opacity: 1; }
+  .preloader-fadein span {
+    opacity: 1; }
 
 .vis-tracks h1, .vis-tracks h2, .vis-tracks h3, .vis-tracks h4, .vis-tracks h5, .vis-tracks h6, .preload-tracks h1, .preload-tracks h2, .preload-tracks h3, .preload-tracks h4, .preload-tracks h5, .preload-tracks h6 {
   font-size: 6.525vh;

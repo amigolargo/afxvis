@@ -6,6 +6,7 @@ import _first from 'lodash/array/first';
 import _map from 'lodash/collection/map';
 import _find from 'lodash/collection/find';
 import _result from 'lodash/object/result';
+import timeout from '../util/timeout';
 import TweenLite from '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/TweenLite';
 import '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/plugins/CSSPlugin';
 
@@ -132,8 +133,6 @@ export default class AudioActions {
     initTweens() {
         if(this.audioEl.currentTime > 0 && !this.trackInit) {
 
-            console.log('init tweens');
-
             let elapsed = this.audioEl.currentTime,
                 finalSegmentStart = this.data[this.data.length - 1].start,
                 elapsedPercent = (elapsed / finalSegmentStart) * 100;
@@ -185,7 +184,7 @@ export default class AudioActions {
             let host = 'https://s3-us-west-2.amazonaws.com/afxvis.io/',
                 filename = _result( _find(this.tracks, 'en_id', this.trackId), 'filename');
 
-            if (window.location.port === '9090' || window.location.port === '8080') {
+            if (window.location.port === '9090') {
                 host = '/';
             } else {
                 filename = filename.split(' ').join('+');
@@ -195,6 +194,8 @@ export default class AudioActions {
 
             this.resetTrack();
             this.bindAudioListeners(URL).then(() => resolve());
+
+            timeout(1).then(() => this.playTrack());
         });
     }
 
@@ -208,8 +209,10 @@ export default class AudioActions {
         });
 
         window.onfocus = function() {
-            _this.pauseTrack();
-            _this.playTrack();
+            if(!_this.trackIsPaused) {
+                _this.pauseTrack();
+                _this.playTrack();
+            }
         }
     }
 }

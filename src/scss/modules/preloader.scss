@@ -6,19 +6,48 @@
     position: fixed;
     top: 0;
     left: 0;
-   	bottom: 0;
-   	right: 0;
-   	background-color: rgba(0,0,0,0.25);
-   	visibility: hidden;
-   	transition: opacity 0.5s;
-   	z-index: 10;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.25);
+	visibility: hidden;
+	transition: opacity 0.5s;
+	z-index: 10;
+    span {
+        position: absolute;
+        transition: opacity 1s;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        font-size: 6.525vh;
+        font-weight: 700;
+        color: #fff;
+        &:after {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            animation-name: ellipsis;
+            animation-duration: 1.5s;
+            animation-timing-function: steps(4, end);
+            animation-delay: 0.25s;
+            animation-iteration-count: infinite;
+            animation-fill-mode: none;
+            content: "...";
+            width: 0;
+        }
+    }
 }
 
 .preloader-visible {
 	visibility: visible;
 	opacity: 0;
+    span {
+        opacity: 1;
+    }
 }
 
 .preloader-fadein {
 	opacity: 1;
+    span {
+        opacity: 1;
+    }
 }

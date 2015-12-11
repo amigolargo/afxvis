@@ -21,6 +21,9 @@ export default class VisManager {
         this.audioVis = audioVis();
         this.followersVis = followersVis();
 
+        this.dataHost = window.location.port === '9090' ? './' :
+            'https://s3-us-west-2.amazonaws.com/afxvis.io/';
+
         this.trackMetaData = {};
         this.tracksJSONVersion = this.tracksVisEl.getAttribute('data-jsonexport');
     }
@@ -60,7 +63,7 @@ export default class VisManager {
             rivets.bind(document.getElementsByClassName(parentClass)[0], {track: this.trackMetaData});
 
             dataManager.readJsonFiles([
-                `./data/echonest/${request.params.id}.json`,
+                `${this.dataHost}data/echonest/${request.params.id}.json`,
                 `./data/tracks-export-${this.tracksJSONVersion}.json`
             ])
             .then(json => {
@@ -98,7 +101,7 @@ export default class VisManager {
 
         return new Promise((resolve, reject) => {
             dataManager.loadJSON(
-                `./data/echonest/${request.params.id}.json`
+                `${this.dataHost}data/echonest/${request.params.id}.json`
             )
             .then(json => {
                 const data = json.segments,
