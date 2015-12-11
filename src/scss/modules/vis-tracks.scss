@@ -59,7 +59,7 @@
 	  	transition: fill 0.3s;
 	}
 
-	.dot.active:hover circle {
+	.dot.active.hover circle {
 		fill: #ff5500;
 	}
 
@@ -70,7 +70,7 @@
 		transition: opacity 0.3s;
 	}
 
-	.dot.active:hover image {
+	.dot.active.hover image {
 		opacity: 1;
 	}
 

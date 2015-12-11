@@ -104,8 +104,8 @@ d3.afx.tracks = function() {
                 .append('g')
                 .classed('dot', true)
                 .on('mouseover', function(d) {
+                    d3.select(this).classed('hover', true); // firefox svg hover bug
                     if( d3.select(this).classed('active') ) {
-                        dispatch.mouseover(d, 'dot');
                         dotLayer.selectAll('.dot').sort(function (a, b) {
                             if (a.id != d.id) {
                                 return -1;
@@ -113,9 +113,11 @@ d3.afx.tracks = function() {
                                 return 1;
                             }
                         });
+                        dispatch.mouseover(d, 'dot');
                     }
                 })
                 .on('mouseout', function(d) {
+                    d3.select(this).classed('hover', false); // firefox svg hover bug
                     dispatch.mouseout(d, 'dot');
                 })
                 .on('click', function(d) {
