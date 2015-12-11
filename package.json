@@ -49,6 +49,7 @@
     "dependencies": {
       "chroma-js": "npm:chroma-js@^1.1.1",
       "d3": "github:mbostock/d3@^3.5.9",
+      "debounce": "npm:debounce@^1.0.0",
       "dot": "npm:dot@^1.0.3",
       "grapnel": "npm:grapnel@^0.6.2",
       "gsap": "npm:gsap@^1.18.0",
