@@ -177,12 +177,11 @@ nav {
         color: #c6d300; }
         nav li a:hover:before {
           border: 1px solid #c6d300; }
-    nav li .a-active:hover:before {
-      background: #c6d300;
-      border: 1px solid #c6d300; }
-    nav li .a-active:before {
-      background: #fff;
-      border: 1px solid #fff; }
+    nav li .a-active {
+      color: #c6d300; }
+      nav li .a-active:before {
+        background: #c6d300;
+        border: 1px solid #c6d300; }
     nav li .a-disabled {
       pointer-events: none;
       cursor: default; }

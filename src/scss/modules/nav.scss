@@ -72,15 +72,10 @@ nav {
 		}
 
 		.a-active {
-			&:hover {
-				&:before {
-					background: #c6d300;
-					border: 1px solid #c6d300;
-				}
-			}
+			color: #c6d300;
 			&:before {
-				background: #fff;
-				border: 1px solid #fff;
+				background: #c6d300;
+				border: 1px solid #c6d300;
 			}
 		}
 

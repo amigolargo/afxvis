@@ -1,7 +1,11 @@
 import d3 from 'd3';
 import SC from 'soundcloud';
 import chroma from 'chroma-js';
-import _ from 'lodash';
+import _dropWhile from 'lodash/array/dropWhile';
+import _first from 'lodash/array/first';
+import _map from 'lodash/collection/map';
+import _find from 'lodash/collection/find';
+import _result from 'lodash/object/result';
 import TweenLite from '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/TweenLite';
 import '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/plugins/CSSPlugin';
 
@@ -27,12 +31,6 @@ export default class AudioActions {
         this._trackMetaLoaded = this.trackMetaLoaded.bind(this);
         this._initTweens = this.initTweens.bind(this);
         this._togglePlay = this.togglePlay.bind(this);
-
-        var _this = this;
-
-        window.onblur = function() {
-            _this.pauseTrack();
-        }
 
         this.init();
     }
@@ -64,7 +62,7 @@ export default class AudioActions {
                 this.$progress.setAttribute('value', this.progress / 10);
             }
 
-            let segment = _.first(_.map(_.dropWhile(this.data, n => {
+            let segment = _first(_map(_dropWhile(this.data, n => {
                 return n.start <= (this.elapsed / 1000);
             })));
 
@@ -134,6 +132,8 @@ export default class AudioActions {
     initTweens() {
         if(this.audioEl.currentTime > 0 && !this.trackInit) {
 
+            console.log('init tweens');
+
             let elapsed = this.audioEl.currentTime,
                 finalSegmentStart = this.data[this.data.length - 1].start,
                 elapsedPercent = (elapsed / finalSegmentStart) * 100;
@@ -183,9 +183,9 @@ export default class AudioActions {
             this.chartWidth = width;
 
             let host = 'https://s3-us-west-2.amazonaws.com/afxvis.io/',
-                filename = _.result( _.find(this.tracks, 'en_id', this.trackId), 'filename');
+                filename = _result( _find(this.tracks, 'en_id', this.trackId), 'filename');
 
-            if (window.location.port === '9090') {
+            if (window.location.port === '9090' || window.location.port === '8080') {
                 host = '/';
             } else {
                 filename = filename.split(' ').join('+');
@@ -199,9 +199,17 @@ export default class AudioActions {
     }
 
     init() {
+        const _this = this;
+
         this.audioEl = document.createElement('audio');
+
         Array.from(this.$bars).forEach(($bar, index) => {
             $bar.style.backgroundColor = this.color(index % 12 / 12).hex();
         });
+
+        window.onfocus = function() {
+            _this.pauseTrack();
+            _this.playTrack();
+        }
     }
 }

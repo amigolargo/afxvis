@@ -1,6 +1,8 @@
 src/data/
 src/mp3/
 src/jspm_packages/
+dist/data/
+dist/mp3/
 node_modules/
 
 
