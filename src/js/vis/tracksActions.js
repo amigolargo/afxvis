@@ -6,22 +6,8 @@ export default class TracksActions {
         this.audioVisEl = audioVisEl;
         this.titles = el.getElementsByClassName('title');
         this.subtitles = el.getElementsByClassName('subtitle');
-        this.h3 = this.titles[2];
 
         this.init();
-    }
-    preload(_this) {
-        let text = _this.titles[2].textContent;
-
-        if (text == '.'){
-            _this.h3.innerHTML = '..';
-        } else if (text == '..'){
-            _this.h3.innerHTML = '...';
-        } else if (text == '...'){
-            _this.h3.innerHTML = '&nbsp;';
-        } else {
-            _this.h3.innerHTML = '.';
-        }
     }
     dotOver(d) {
         let dateArr = d.uploaded_at.split(' ');
@@ -47,24 +33,14 @@ export default class TracksActions {
         }
     }
     dotClick(d) {
-        // let win = window.open(d.permalink_url, 'tunes');
-        // win.focus();
-
         window.location.hash = '/audio/' + d.en_id;
         this.audioVisEl.setAttribute('data-mp3', d.filename);
     }
-    loaded() {
-        clearInterval(this.loading);
-        this.h3.innerHTML = '&nbsp;';
-    }
     init() {
-        var _this = this;
 
         for (let title of this.titles) {
             title.setAttribute('data-defaulttext', title.textContent);
         }
-
-        this.loading = setInterval(this.preload(_this), 300);
 
         this.vis.on('mouseover.dot', d => this.dotOver(d));
         this.vis.on('mouseout.dot', d => this.dotOut(d));

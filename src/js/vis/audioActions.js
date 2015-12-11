@@ -85,7 +85,6 @@ export default class AudioActions {
         if(this.tween) {
             this.tween.resume();
         }
-        console.log('play track');
         this.trackIsPaused = false;
     }
 
@@ -134,8 +133,6 @@ export default class AudioActions {
 
     initTweens() {
         if(this.audioEl.currentTime > 0 && !this.trackInit) {
-
-            console.log('init tweens');
 
             let elapsed = this.audioEl.currentTime,
                 finalSegmentStart = this.data[this.data.length - 1].start,
@@ -188,8 +185,7 @@ export default class AudioActions {
             let host = 'https://s3-us-west-2.amazonaws.com/afxvis.io/',
                 filename = _.result( _.find(this.tracks, 'en_id', this.trackId), 'filename');
 
-            if (window.location.port === '9090' &&
-                window.location.hostname === '127.0.0.1') {
+            if (window.location.port === '9090') {
                 host = '/';
             } else {
                 filename = filename.split(' ').join('+');

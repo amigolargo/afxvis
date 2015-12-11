@@ -230,7 +230,7 @@ nav {
 .preloader-fadein {
   opacity: 1; }
 
-.vis-tracks h1, .vis-tracks h2, .vis-tracks h3, .vis-tracks h4, .vis-tracks h5, .vis-tracks h6 {
+.vis-tracks h1, .vis-tracks h2, .vis-tracks h3, .vis-tracks h4, .vis-tracks h5, .vis-tracks h6, .preload-tracks h1, .preload-tracks h2, .preload-tracks h3, .preload-tracks h4, .preload-tracks h5, .preload-tracks h6 {
   font-size: 6.525vh;
   line-height: 1em;
   margin: 0;
@@ -239,64 +239,65 @@ nav {
   z-index: 1;
   padding-left: 7.6%; }
 
-.vis-tracks h1 {
+.vis-tracks h1, .preload-tracks h1 {
   margin-top: 24%; }
 
-.vis-tracks .subtitle {
+.vis-tracks .subtitle, .preload-tracks .subtitle {
   font-weight: 300;
   font-size: 4.3065vh; }
 
-.vis-tracks .subtitle-bold {
+.vis-tracks .subtitle-bold, .preload-tracks .subtitle-bold {
   font-size: 6.525vh;
   font-weight: 700; }
 
 .vis-tracks .axis line,
-.vis-tracks .axis path {
+.vis-tracks .axis path, .preload-tracks .axis line,
+.preload-tracks .axis path {
   shape-rendering: crispEdges;
   stroke: black;
   fill: none; }
 
-.vis-tracks .main text {
+.vis-tracks .main text, .preload-tracks .main text {
   font-size: .5625rem; }
 
-.vis-tracks .main text.label {
+.vis-tracks .main text.label, .preload-tracks .main text.label {
   font-weight: 500;
   font-size: .703125rem; }
 
-.vis-tracks .main text.labelX {
+.vis-tracks .main text.labelX, .preload-tracks .main text.labelX {
   text-anchor: middle;
   dominant-baseline: central; }
 
-.vis-tracks .dot {
+.vis-tracks .dot, .preload-tracks .dot {
   cursor: pointer; }
 
-.vis-tracks .dot circle {
+.vis-tracks .dot circle, .preload-tracks .dot circle {
   fill: black;
   position: relative;
   z-index: 0;
   transition: fill 0.3s; }
 
-.vis-tracks .dot.active:hover circle {
+.vis-tracks .dot.active:hover circle, .preload-tracks .dot.active:hover circle {
   fill: #ff5500; }
 
-.vis-tracks .dot image {
+.vis-tracks .dot image, .preload-tracks .dot image {
   opacity: 0;
   position: relative;
   z-index: 10;
   transition: opacity 0.3s; }
 
-.vis-tracks .dot.active:hover image {
+.vis-tracks .dot.active:hover image, .preload-tracks .dot.active:hover image {
   opacity: 1; }
 
-.vis-tracks .chart {
+.vis-tracks .chart, .preload-tracks .chart {
   position: relative;
   z-index: 10; }
 
-.vis-tracks .frame {
+.vis-tracks .frame, .preload-tracks .frame {
   background: #fff;
   margin: 0 auto; }
 
-.vis-tracks .html-content {
+.vis-tracks .html-content, .preload-tracks .html-content {
   position: absolute;
   width: 90vh;
   height: 90vh;
@@ -305,7 +306,7 @@ nav {
   left: 50%;
   transform: translate3D(-50%, -50%, 0); }
 
-.vis-tracks .html-content:after {
+.vis-tracks .html-content:after, .preload-tracks .html-content:after {
   display: block;
   content: "";
   width: 100%;
@@ -317,7 +318,7 @@ nav {
   border-radius: 50% 50%;
   background-color: #c6d300; }
 
-.vis-tracks .svg-container {
+.vis-tracks .svg-container, .preload-tracks .svg-container {
   position: absolute;
   width: 90vh;
   height: 90vh;
@@ -328,36 +329,36 @@ nav {
   left: 50%;
   transform: translate3D(-50%, -50%, 0); }
 
-.vis-tracks .svg-content {
+.vis-tracks .svg-content, .preload-tracks .svg-content {
   display: inline-block;
   position: absolute;
   top: 0;
   left: 0; }
 
-.vis-tracks .description {
+.vis-tracks .description, .preload-tracks .description {
   max-width: 36em;
   margin-top: 3em; }
 
-.vis-tracks .key {
+.vis-tracks .key, .preload-tracks .key {
   font-size: 0.703125rem;
   text-align: right;
   padding: 2vh; }
 
-.vis-tracks .key dt, .vis-tracks .key dd, .vis-tracks .key ul, .vis-tracks .key li {
+.vis-tracks .key dt, .vis-tracks .key dd, .vis-tracks .key ul, .vis-tracks .key li, .preload-tracks .key dt, .preload-tracks .key dd, .preload-tracks .key ul, .preload-tracks .key li {
   display: inline-block;
   padding: 0;
   margin: 0; }
 
-.vis-tracks .key dt {
+.vis-tracks .key dt, .preload-tracks .key dt {
   margin-left: 12px; }
 
-.vis-tracks .key li {
+.vis-tracks .key li, .preload-tracks .key li {
   width: 12px;
   height: 12px;
   text-align: center;
   margin-right: 1px; }
 
-.vis-tracks .key li:after {
+.vis-tracks .key li:after, .preload-tracks .key li:after {
   content: "";
   display: inline-block;
   background: #000;
@@ -366,24 +367,44 @@ nav {
   width: 100%;
   height: 100%; }
 
-.vis-tracks .downloads li {
+.vis-tracks .downloads li, .preload-tracks .downloads li {
   margin-right: 2px; }
 
-.vis-tracks .downloads li:nth-child(1) {
+.vis-tracks .downloads li:nth-child(1), .preload-tracks .downloads li:nth-child(1) {
   opacity: .333; }
 
-.vis-tracks .downloads li:nth-child(2) {
+.vis-tracks .downloads li:nth-child(2), .preload-tracks .downloads li:nth-child(2) {
   opacity: .666; }
 
-.vis-tracks .favourites li:nth-child(1):after {
+.vis-tracks .favourites li:nth-child(1):after, .preload-tracks .favourites li:nth-child(1):after {
   width: 4px;
   height: 4px;
   border-radius: 2px; }
 
-.vis-tracks .favourites li:nth-child(2):after {
+.vis-tracks .favourites li:nth-child(2):after, .preload-tracks .favourites li:nth-child(2):after {
   width: 8px;
   height: 8px;
   border-radius: 4px; }
+
+.js-loaded .preload-tracks {
+  display: none; }
+
+.preload-tracks h3:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  animation-name: ellipsis;
+  animation-duration: 1.5s;
+  animation-timing-function: steps(4, end);
+  animation-delay: 0.25s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: none;
+  content: "...";
+  width: 0; }
+
+@keyframes ellipsis {
+  to {
+    width: 2.2em; } }
 
 .vis-audio h1, .vis-audio h2, .vis-audio h3, .vis-audio h4, .vis-audio h5 {
   margin: 0;

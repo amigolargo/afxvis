@@ -74,7 +74,7 @@ d3.afx.followers = function() {
                     sampleSize += d.properties.followers;   // increment our sample size
                     return d.id;                            // return the 2 digit ISO code
                 })
-                .attr('fill', 'rgba(255,255,255,0.25')
+                .attr('fill', 'rgba(255,255,255,0.25)')
                 .attr('d', path);
 
             worldcountries.on('mouseenter', function(d) {

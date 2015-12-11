@@ -28,10 +28,8 @@ export default class Navigation {
         if(this.nav.classList.contains('nav-animating')) {
             return false;
         } else if(this.nav.classList.contains('nav-visible')) {
-            console.log('hide');
             this.hideNav();
         } else {
-            console.log('show');
             this.showNav();
         }
     }
@@ -48,12 +46,18 @@ export default class Navigation {
         TweenLite.to([this.main, this.nav], .8, {x: 0, ease: Cubic.easeOut});
     }
     goto(request) {
-        this.initSlide(request).then(() => this.navigate(request));
+        this.initSlide(request).then(() => {
+            this.navigate(request);
+            this.main.classList.add('js-loaded');
+        });
     }
     initSlide(request) {
         return new Promise((resolve, reject) => {
             let visName = this.getName(request);
-            this.preloader.show();
+
+            if (visName === 'audio') {
+                this.preloader.show();
+            }
 
             template.loadAndRender({
                 elem: document.querySelector(`.vis-${visName}`),
@@ -61,10 +65,8 @@ export default class Navigation {
             })
             .then((response) => {
                 if(response === 'loaded') {
-                    console.log('loaded');
                     this.visManager.init(visName, request).then(() => resolve());
                 } else if(response === 'cached') {
-                    console.log('cached');
                     this.visManager.replay(visName, request).then(() => resolve());
                 }
             });

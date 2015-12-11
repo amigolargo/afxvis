@@ -2,7 +2,7 @@
 //   Tracks vis (scatter)
 // =============================================================================
 
-.vis-tracks {
+.vis-tracks, .preload-tracks {
 	h1, h2, h3, h4, h5, h6 {
 		font-size: 6.525vh;
 		line-height: 1em;
@@ -187,4 +187,31 @@
 		height: 8px;
 		border-radius: 4px;
 	}
+}
+
+.preload-tracks {
+	.js-loaded & {
+		display: none;
+	}
+	h3 {
+		&:after {
+			overflow: hidden;
+			display: inline-block;
+			vertical-align: bottom;
+			animation-name: ellipsis;
+			animation-duration: 1.5s;
+			animation-timing-function: steps(4, end);
+			animation-delay: 0.25s;
+			animation-iteration-count: infinite;
+			animation-fill-mode: none;
+			content: "...";
+			width: 0;
+		}
+	}
+}
+
+@keyframes ellipsis {
+  to {
+    width: 2.2em;
+  }
 }

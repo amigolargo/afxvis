@@ -42,7 +42,6 @@ export default class VisManager {
                     .datum(data)
                     .call(this.tracksVis);
 
-                actions.loaded();
                 resolve();
             })
             .catch(error => {
