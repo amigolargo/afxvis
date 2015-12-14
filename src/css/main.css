@@ -463,7 +463,7 @@ nav {
   border-radius: 3.25vh;
   background-color: #ff5500;
   background-image: url("/img/sc-arrow.svg");
-  background-size: 100% auto;
+  background-size: 100% 100%;
   position: absolute;
   left: 2.6vh;
   top: 1.6vh;
@@ -522,7 +522,7 @@ nav {
 .vis-audio .bars {
   padding: 0;
   margin: 0;
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   right: 0; }
@@ -663,6 +663,8 @@ nav {
     top: 50%;
     transform: translateY(-50%);
     z-index: 0; }
+  .vis-followers svg {
+    width: 100%; }
   .vis-followers form {
     pointer-events: all; }
   .vis-followers path.country {
