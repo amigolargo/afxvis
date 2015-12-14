@@ -5,9 +5,11 @@ import '../jspm_packages/npm/gsap@1.18.0/src/uncompressed/plugins/CSSPlugin';
 export default class Preloader {
     constructor(cssClass) {
         this.el = document.getElementsByClassName(cssClass)[0];
+        this.tracksPreload = document.querySelector('.preload-tracks h3');
     }
     show() {
         this.el.classList.add('preloader-visible');
+        this.tracksPreload.classList.remove('animate');
         timeout(0.05).then(() => {
             this.el.classList.add('preloader-fadein');
         });

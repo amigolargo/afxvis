@@ -194,6 +194,10 @@
 		display: none;
 	}
 	h3 {
+		content: ".";
+		animation-name: none;
+	}
+	h3.animate {
 		&:after {
 			overflow: hidden;
 			display: inline-block;
