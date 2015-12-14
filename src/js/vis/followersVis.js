@@ -42,8 +42,6 @@ d3.afx.followers = function() {
                     .attr({
                         'viewBox': '0 0 1000 500',
                         'preserveAspectRatio': 'xMinYMin meet'
-                        // 'width': 1000,
-                        // 'height': 500
                     }),
                 layer = map.append('g').attr('id', 'layer')
                     .attr({
