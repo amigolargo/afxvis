@@ -73,7 +73,11 @@ export default class AudioActions {
             }
         }
 
-        this.loop = requestAnimationFrame(() => this.trackProgress(duration));
+        if(this.progress / 10 < 100) {
+            this.loop = requestAnimationFrame(() => this.trackProgress(duration));
+        } else {
+            this.pauseTrack();
+        }
     }
 
     playTrack() {
@@ -122,7 +126,7 @@ export default class AudioActions {
         }.bind(this));
 
         if(this.audioEl.readyState > 3) {
-            this._trackLoaded();
+            this.trackLoaded();
         }
     }
 
