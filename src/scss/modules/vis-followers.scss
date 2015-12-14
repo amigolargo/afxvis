@@ -95,7 +95,6 @@
 		font-size: 1.5vh;
 	}
 
-
 	button {
 		border: none;
 		background: rgba(255,255,255,0.333);
@@ -106,6 +105,8 @@
 		cursor: pointer;
 		transition: background 0.3s ease-out;
 		margin-right: 0.5em;
+		display: inline-block;
+		line-height: 1.5em;
 	}
 
 	button:hover,

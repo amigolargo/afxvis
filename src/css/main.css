@@ -682,7 +682,9 @@ nav {
     color: #c6d300;
     cursor: pointer;
     transition: background 0.3s ease-out;
-    margin-right: 0.5em; }
+    margin-right: 0.5em;
+    display: inline-block;
+    line-height: 1.5em; }
   .vis-followers button:hover,
   .vis-followers button.active {
     background: white; }
