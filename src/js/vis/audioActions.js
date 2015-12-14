@@ -19,7 +19,7 @@ export default class AudioActions {
         this.$svg = el.getElementsByTagName('svg')[0];
         this.$info = document.getElementById('js-info');
         this.$bars = el.querySelectorAll('.bars li');
-        this.$progress = el.getElementsByTagName('progress')[0];
+        this.$progress = el.querySelectorAll('.progress')[0];
         this.$playBtn = el.querySelectorAll('.info button')[0];
         this.$cloneBars = el.querySelectorAll('.bars-clone li');
 
@@ -61,7 +61,7 @@ export default class AudioActions {
             this.progress = this.elapsed / duration;
 
             if(this.progress > 2) { // stop progress bar reporting incorrectly before the track timeupdate event
-                this.$progress.setAttribute('value', this.progress / 10);
+                this.$progress.setAttribute('style', 'width: '+ this.progress / 10 + '%');
             }
 
             let segment = _first(_map(_dropWhile(this.data, n => {
@@ -115,26 +115,30 @@ export default class AudioActions {
         this.resolveTrack;
         this.rejectTrack;
 
+        var _this = this;
+
         this.audioEl.setAttribute('src', file);
         this.audioEl.addEventListener('loadedmetadata', this._trackMetaLoaded);
-        this.audioEl.addEventListener('canplaythrough', this._trackLoaded);
         this.audioEl.addEventListener('timeupdate', this._initTweens);
+
+        let loadProgress = setInterval(function() {
+            if(_this.audioEl.readyState >= 2) {
+                clearInterval(loadProgress);
+                _this.trackLoaded();
+            }
+        }, 50);
 
         return new Promise(function(resolve, reject) { // resolved externally in trackMetaLoaded()
             this.resolveTrackMeta = resolve;
             this.rejectTrackMeta = reject;
         }.bind(this));
-
-        if(this.audioEl.readyState > 3) {
-            this.trackLoaded();
-        }
     }
 
     removeAudioListeners() {
         cancelAnimationFrame(this.loop);
 
         this.audioEl.removeEventListener('loadedmetadata', this._trackMetaLoaded);
-        this.audioEl.removeEventListener('canplaythrough', this._trackLoaded);
+        this.audioEl.removeEventListener('canplay', this._trackLoaded);
         this.audioEl.removeEventListener('timeupdate', this._initTweens);
         this.$playBtn.removeEventListener('click', this._togglePlay);
     }
@@ -167,7 +171,7 @@ export default class AudioActions {
     resetTrack() {
         this.pauseTrack();
         this.trackInit = false;
-        this.$progress.setAttribute('value', 0);
+        this.$progress.setAttribute('style', 'width: 0');
         this.resetTweens();
         this.removeAudioListeners();
     }

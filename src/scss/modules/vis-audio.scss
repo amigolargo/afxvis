@@ -71,9 +71,7 @@
 		opacity: 1;
 	}
 
-	progress {
-		-webkit-appearance: none;
-		-moz-appearance: none;
+	.progress {
 		border: none;
 		position: absolute;
 		top: -2px;
@@ -81,21 +79,7 @@
 		right: 0;
 		padding: 0;
 		height: 2px;
-		width: 100%;
-		background: none;
-	}
-
-	progress::-webkit-progress-bar {
-		height: 2px;
-		background: none;
-	}
-
-	progress::-webkit-progress-value {
-		background: #fff;
-		height: 2px;
-	}
-
-	progress::-moz-progress-bar {
+		width: 0;
 		background: #fff;
 	}
 

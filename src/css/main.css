@@ -495,9 +495,7 @@ nav {
 .vis-audio .info button:hover {
   opacity: 1; }
 
-.vis-audio progress {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+.vis-audio .progress {
   border: none;
   position: absolute;
   top: -2px;
@@ -505,18 +503,7 @@ nav {
   right: 0;
   padding: 0;
   height: 2px;
-  width: 100%;
-  background: none; }
-
-.vis-audio progress::-webkit-progress-bar {
-  height: 2px;
-  background: none; }
-
-.vis-audio progress::-webkit-progress-value {
-  background: #fff;
-  height: 2px; }
-
-.vis-audio progress::-moz-progress-bar {
+  width: 0;
   background: #fff; }
 
 .vis-audio svg {
