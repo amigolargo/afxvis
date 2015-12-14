@@ -37,7 +37,8 @@ export default class Navigation {
     }
     showNav() {
         let navWidth = this.nav.offsetWidth;
-        this.nav.classList.add('nav-animating', 'nav-visible');
+        this.nav.classList.add('nav-animating');
+        this.nav.classList.add('nav-visible');
         TweenLite.to(this.nav, .8, {x: navWidth, ease: Cubic.easeOut});
         TweenLite.to(this.main, .8, {x: navWidth, ease: Quad.easeOut, onCompleteScope: this, onComplete: function() {
             this.nav.classList.remove('nav-animating');
