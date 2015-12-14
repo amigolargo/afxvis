@@ -120,6 +120,10 @@ export default class AudioActions {
             this.resolveTrackMeta = resolve;
             this.rejectTrackMeta = reject;
         }.bind(this));
+
+        if(this.audioEl.readyState > 3) {
+            this._trackLoaded();
+        }
     }
 
     removeAudioListeners() {
@@ -132,6 +136,7 @@ export default class AudioActions {
     }
 
     initTweens() {
+
         if(this.audioEl.currentTime > 0 && !this.trackInit) {
 
             let elapsed = this.audioEl.currentTime,
