@@ -4,6 +4,7 @@ src/jspm_packages/
 dist/data/echonest/
 dist/mp3/
 node_modules/
+firebase.json
 
 
 # OS generated files #
