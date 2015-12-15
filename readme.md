@@ -29,8 +29,4 @@ A project to visualise, <a href="https://en.wikipedia.org/wiki/Aphex_Twin" targe
 
 ### notes
 
-
-
-
-
-To use the live S3 assets you should change the port to :9090. If you require a local copy of the mp3s / Echonest JSON, get in touch.
+To use the live S3 assets, change the local development port to :8080. If you require a local copy of the mp3s / Echonest JSON to run everything locally, get in touch.
