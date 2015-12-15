@@ -17,9 +17,10 @@
     "serve": "npm run serve:src",
     "serve:src": "http-server -p 9090 ./src",
     "serve:dist": "http-server -p 8080 ./dist",
-    "deploy": "npm run deploy:prod",
-    "deploy:prod": "firebase deploy",
-    "deploy:dev": "firebase deploy -f afxvis-dev"
+    "git:branch": "git subtree split --prefix dist -b gh-pages",
+    "git:push": "git push -f origin gh-pages:gh-pages",
+    "git: cleanup": "git branch -D gh-pages",
+    "deploy": "npm run build && npm run git:branch && npm run git:push && npm run git:cleanup"
   },
   "repository": {
     "type": "git",
