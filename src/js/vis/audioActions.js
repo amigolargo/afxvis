@@ -1,5 +1,4 @@
 import d3 from 'd3';
-import SC from 'soundcloud';
 import chroma from 'chroma-js';
 import _dropWhile from 'lodash/array/dropWhile';
 import _first from 'lodash/array/first';
