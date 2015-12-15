@@ -3,7 +3,7 @@
 ## visualising Soundcloud user19081971
 
 
-In early 2015, <a href="https://en.wikipedia.org/wiki/Aphex_Twin" target="_blank">Aphex Twin</a> began uploading rare and unreleased music to an <a href="https://soundcloud.com/user18081971" target="_blank">anonymous Soundcloud account</a>. By late October he had uploaded 261 tracks, and a <a href="http://user18081971.watmm.com/" target="_blank">fan voting site</a> had appeared to help Aphex Twin himself decide which tracks should get remastered and released traditionally. Plotting fan votes against Soundcloud plays gives us a new visual means to explore the archive.
+A project to visualise, <a href="https://en.wikipedia.org/wiki/Aphex_Twin" target="_blank">Aphex Twin</a>'s 2015 <a href="https://soundcloud.com/user18081971" target="_blank">anonymous Soundcloud account</a> uploads: <a href="http://www.afxvis.io">afxvis.io</a>.
 
 ### features
 
@@ -11,8 +11,8 @@ In early 2015, <a href="https://en.wikipedia.org/wiki/Aphex_Twin" target="_blank
 * manage front end dependencies with JSPM
 * write in ES6/2015, transpile to ES5 with Babel
 * front end tooling with npm scripts
-* sass compilation with autoprefixer / postCSS 
-* livereload 
+* sass compilation with autoprefixer / postCSS
+* livereload
 
 
 ### install
