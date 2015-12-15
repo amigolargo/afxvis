@@ -10,7 +10,7 @@ function loadView(template) {
 	return new Promise(function(resolve, reject) {
 
 		var request = new XMLHttpRequest();
-		request.open('GET', '/views/' + template + '.html', true);
+		request.open('GET', './views/' + template + '.html', true);
 
 		request.onreadystatechange = function() {
 			if (request.readyState != 4 || request.status != 200) {
