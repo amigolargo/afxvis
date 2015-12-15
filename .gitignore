@@ -5,6 +5,7 @@ dist/data/echonest/
 dist/mp3/
 node_modules/
 firebase.json
+dist/.DS_Store
 
 !/dist
 
