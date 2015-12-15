@@ -7,6 +7,7 @@ import _map from 'lodash/collection/map';
 import _find from 'lodash/collection/find';
 import _result from 'lodash/object/result';
 import timeout from '../util/timeout';
+import encodeS3URI from '../util/encodeS3URI';
 import TweenLite from '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/TweenLite';
 import '../../jspm_packages/npm/gsap@1.18.0/src/uncompressed/plugins/CSSPlugin';
 import debounce from 'debounce';
@@ -197,6 +198,8 @@ export default class AudioActions {
 
             let host = 'https://s3-us-west-2.amazonaws.com/afxvis.io/',
                 filename = _result( _find(this.tracks, 'en_id', this.trackId), 'filename');
+
+            filename = encodeS3URI(filename);
 
             if (window.location.port === '9090') {
                 host = '/';
