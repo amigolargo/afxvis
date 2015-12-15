@@ -12,7 +12,7 @@ d3.afx.audio = function() {
         paths,
         width,
         height,
-        interpolate = 'cardinal',       // 'cardinal' || 'step-before'
+        interpolate = 'cardinal',       // 'cardinal' || 'step-before' || 'monotone' || 'cardinal'
         offset = 'expand';              // 'expand' || 'silhouette'
 
     function vis(selection) {

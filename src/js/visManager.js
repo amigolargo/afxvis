@@ -80,7 +80,7 @@ export default class VisManager {
                 this.audioVis
                     .width(chartWidth)
                     .height(document.documentElement.clientHeight)
-                    .interpolate('basis')
+                    .interpolate('cardinal')
                     .draw(data);
 
                 this.audioActions = new AudioActions(this.audioVisEl, json[1]);
