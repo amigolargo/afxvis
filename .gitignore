@@ -1,7 +1,7 @@
-src/data/
+src/data/echonest/
 src/mp3/
 src/jspm_packages/
-dist/data/
+dist/data/echonest/
 dist/mp3/
 node_modules/
 
