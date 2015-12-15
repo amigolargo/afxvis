@@ -6,6 +6,8 @@ dist/mp3/
 node_modules/
 firebase.json
 
+!/dist
+
 
 # OS generated files #
 ######################
